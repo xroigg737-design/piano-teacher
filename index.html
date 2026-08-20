@@ -737,7 +737,7 @@ Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l
 
 <footer>
     Piano Teacher &middot; XRoig 2026
-    <p class="footer-version">v1.2</p>
+    <p class="footer-version">v1.3</p>
 </footer>
 
 <script>
@@ -746,6 +746,17 @@ const app = (() => {
     const STORAGE_LESSONS = 'piano-teacher-lessons';
     const STORAGE_CHAT = 'piano-teacher-chat';
     const STORAGE_COMPLETED = 'piano-teacher-completed';
+
+    function checkCourseVersion() {
+        const stored = localStorage.getItem('piano-teacher-course-version');
+        if (!stored || parseInt(stored) < COURSE_VERSION) {
+            localStorage.removeItem(STORAGE_TOPICS);
+            localStorage.removeItem(STORAGE_LESSONS);
+            localStorage.removeItem(STORAGE_COMPLETED);
+            localStorage.setItem('piano-teacher-course-version', COURSE_VERSION);
+        }
+    }
+    checkCourseVersion();
 
     function loadTopics() {
         const s = localStorage.getItem(STORAGE_TOPICS);
@@ -774,64 +785,56 @@ const app = (() => {
     function saveChat(c) { localStorage.setItem(STORAGE_CHAT, JSON.stringify(c)); }
     function saveCompleted(c) { localStorage.setItem(STORAGE_COMPLETED, JSON.stringify(c)); }
 
+    const COURSE_VERSION = 2;
+
     function getDefaultTopics() {
         return [
-            { id: 't1', name: 'Postura y Fundamentos Técnicos', desc: 'Postura básica y fundamentos técnicos — classes de vídeo exclusives pas a pas (Raquel Garcia)', order: 1 },
-            { id: 't2', name: 'Estrategias de Estudio Avanzadas', desc: 'Estratègies avançades d\'estudi per superar obstacles i estudiar amb eficàcia', order: 2 },
-            { id: 't3', name: 'Interpretación y Expresividad', desc: 'Tècniques d\'interpretació, fraseig, dinàmica i expressivitat musical', order: 3 },
-            { id: 't4', name: 'Repertorio y Obras', desc: 'Classes dedicades a repertori clàssic, anàlisi d\'obres i com abordar-les', order: 4 },
-            { id: 't5', name: 'Lleva tu Manera de Tocar al Siguiente Nivel', desc: 'Secció especial amb consells pràctics per millorar significativament la teva manera de tocar', order: 5 },
-            { id: 't6', name: 'Sesiones en Vivo (Zoom)', desc: '2 sessions setmanals: una de teoria musical i una de piano — amb feedback personalitzat', order: 6 },
-            { id: 't7', name: 'Evaluaciones Mensuales', desc: 'Envia vídeos de la teva interpretació i rep respostes en vídeo amb guia específica', order: 7 },
+            { id: 's0', name: '0. Empieza aquí', desc: 'Vídeos d\'introducció a la plataforma i suggerències per treure el màxim partit a l\'acadèmia online', order: 0, progress: 43 },
+            { id: 's1', name: '1. Postura y hábitos básicos', desc: 'Postura bàsica del cos, mans i dits. Corregir mals hàbits, errors comuns de principiants i perfeccionar la tècnica des del principi', order: 1, progress: 100 },
+            { id: 's2', name: '2. Cómo estudiar', desc: 'Classes sobre l\'estudi i com realitzar-lo de manera òptima. Conjunt de vídeos sobre el tema (no és un curs complet seqüencial)', order: 2, progress: 0 },
+            { id: 's3', name: '3. Técnica', desc: 'Diferents apartats per millorar la tècnica que et sigui necessària en cada moment', order: 3, progress: 36 },
+            { id: 's4', name: 'Teoría elemental', desc: 'Teoria bàsica dels primers 4 cursos de música (accés VIP)', order: 4, progress: 0 },
+            { id: 's5', name: 'Llamadas semanales - grabaciones', desc: 'Gravacions de les sessions setmanals en directe (Zoom)', order: 5, progress: 0 },
+            { id: 's6', name: 'Lleva tu manera de tocar al siguiente nivel', desc: 'Aspectes tècnics per anar més enllà: tocar de manera segura, precisa i de qualitat', order: 6, progress: 40 },
+            { id: 's7', name: 'Retos', desc: 'Vídeos i detalls de cada repte, amb partitura si n\'hi ha', order: 7, progress: 0 },
+            { id: 's8', name: 'Repertorio: grado elemental', desc: 'Classes sobre repertori de grau elemental (primers 4 cursos de piano)', order: 8, progress: 0 },
+            { id: 's9', name: 'Repertorio: grado medio', desc: 'Classes sobre repertori de grau mitjà (5è a 10è de piano, pla antic i/o altres països)', order: 9, progress: 0 },
+            { id: 's10', name: 'Cómo dejar de ser autodidacta', desc: 'Curs en construcció', order: 10, progress: 0 },
+            { id: 's11', name: 'Libros y materiales', desc: 'Recomanacions de llibres i materials d\'estudi', order: 11, progress: 0 },
         ];
     }
 
     function getDefaultLessons() {
         return [
             {
-                id: 'l1', topicId: 't1', title: 'Posición correcta al piano',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí els teus apunts de les classes de vídeo sobre postura.\n\nTemes a capturar:\n- Alçada del seient i distància al teclat\n- Posició dels braços, colzes i canells\n- Curvatura dels dits\n- Relaxació muscular\n- Errors posturals freqüents',
-                tags: ['postura', 'fonaments', 'tècnica', 'raquel-garcia']
+                id: 'l_s0_1', topicId: 's0', title: 'Introducció a la plataforma Skool',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 0. Empieza aquí\n\nCaptura el contingut de cada vídeo d\'introducció amb el bookmarklet.',
+                tags: ['introducció', 'plataforma', 'skool']
             },
             {
-                id: 'l2', topicId: 't1', title: 'Fundamentos técnicos básicos',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí els teus apunts sobre fonaments tècnics.\n\nTemes a capturar:\n- Digitació bàsica (numeració 1-5)\n- Independència de dits\n- Exercicis inicials\n- Toc legato vs staccato',
-                tags: ['tècnica', 'digitació', 'fonaments', 'raquel-garcia']
+                id: 'l_s1_1', topicId: 's1', title: 'Postura bàsica del cos',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Posició del cos al seient\n- Alçada i distància al teclat\n- Posició de braços i colzes\n- Relaxació muscular',
+                tags: ['postura', 'cos', 'fonaments']
             },
             {
-                id: 'l3', topicId: 't2', title: 'Cómo estudiar con eficacia',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí els teus apunts sobre metodologia d\'estudi.\n\nTemes a capturar:\n- Planificació de sessions de pràctica\n- Estudi per fragments\n- Mans separades vs mans juntes\n- Velocitat progressiva amb metrònom\n- Com superar passatges difícils',
-                tags: ['estudi', 'metodologia', 'pràctica', 'raquel-garcia']
+                id: 'l_s1_2', topicId: 's1', title: 'Postura de mans i dits',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Curvatura dels dits\n- Posició del canell\n- Errors comuns de principiants\n- Mals hàbits a corregir',
+                tags: ['postura', 'mans', 'dits', 'hàbits']
             },
             {
-                id: 'l4', topicId: 't2', title: 'Superar obstáculos en el estudio',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí els teus apunts sobre superació d\'obstacles.\n\nTemes a capturar:\n- Bloquejos tècnics i com resoldre\'ls\n- Gestió de la frustració\n- Quan canviar d\'enfocament\n- Tècniques de repetició intel·ligent',
-                tags: ['obstacles', 'estudi', 'motivació', 'raquel-garcia']
+                id: 'l_s2_1', topicId: 's2', title: 'Com estudiar de manera òptima',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 2. Cómo estudiar\n\nCaptura cada vídeo sobre metodologia d\'estudi.',
+                tags: ['estudi', 'metodologia', 'pràctica']
             },
             {
-                id: 'l5', topicId: 't3', title: 'Técnicas de interpretación',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí els teus apunts sobre interpretació.\n\nTemes a capturar:\n- Fraseig musical\n- Dinàmiques (piano, forte, crescendo, diminuendo)\n- Ús del pedal de sustain\n- Articulació i caràcter\n- Com fer que la música "parli"',
-                tags: ['interpretació', 'expressivitat', 'dinàmica', 'pedal', 'raquel-garcia']
+                id: 'l_s3_1', topicId: 's3', title: 'Exercicis de tècnica',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 3. Técnica\n\nCaptura cada apartat de tècnica específica.',
+                tags: ['tècnica', 'exercicis']
             },
             {
-                id: 'l6', topicId: 't4', title: 'Repertorio clásico recomendado',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nAfegeix aquí les recomanacions de repertori del curs.\n\nTemes a capturar:\n- Peces per nivell (principiant, intermedi, avançat)\n- Com abordar una obra nova\n- Anàlisi formal bàsica\n- Contextualització històrica de les obres',
-                tags: ['repertori', 'obres', 'clàssic', 'raquel-garcia']
-            },
-            {
-                id: 'l7', topicId: 't5', title: 'Consejos prácticos para mejorar',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nSecció especial: "Lleva tu manera de tocar al siguiente nivel"\n\nAfegeix aquí els consells pràctics per millorar.\n\nTemes a capturar:\n- Hàbits d\'escolta activa\n- Auto-avaluació\n- Gravació i anàlisi de la pròpia interpretació\n- Objectius a curt i llarg termini',
-                tags: ['millora', 'consells', 'nivell', 'raquel-garcia']
-            },
-            {
-                id: 'l8', topicId: 't6', title: 'Notes de sessions en viu',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nApunta aquí les notes de les sessions Zoom setmanals.\n\nFormat suggerit per cada sessió:\n\n--- Sessió [DATA] ---\nTema: [teoria/piano]\nContingut principal:\n- ...\nConsells destacats:\n- ...\nPreguntes i respostes:\n- ...\nDeures/exercicis:\n- ...',
-                tags: ['zoom', 'sessions', 'en-viu', 'teoria', 'raquel-garcia']
-            },
-            {
-                id: 'l9', topicId: 't7', title: 'Registre d\'avaluacions mensuals',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\n\nRegistra aquí les avaluacions mensuals i feedback rebut.\n\nFormat suggerit:\n\n--- Avaluació [MES/ANY] ---\nPeça enviada:\nFeedback rebut:\n- Punts forts:\n- Àrees a millorar:\n- Mètodes d\'estudi recomanats:\n- Vídeos de referència suggerits:\nObjectius per al proper mes:\n- ...',
-                tags: ['avaluació', 'feedback', 'mensual', 'progrés', 'raquel-garcia']
+                id: 'l_s6_1', topicId: 's6', title: 'Aspectes tècnics avançats',
+                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: Lleva tu manera de tocar al siguiente nivel\n\nCaptura els consells per tocar de manera segura, precisa i de qualitat.',
+                tags: ['avançat', 'qualitat', 'precisió']
             },
         ];
     }
@@ -878,6 +881,7 @@ const app = (() => {
                     <span class="topic-group-arrow">▶</span>
                     <span class="topic-group-name">${topic.name}</span>
                     <span class="topic-group-count">${completedCount}/${topicLessons.length}</span>
+                    ${topic.progress !== undefined ? `<span style="display:inline-flex;align-items:center;gap:4px;margin-left:4px"><span style="width:50px;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:${topic.progress}%;background:${topic.progress===100?'#4caf50':topic.progress>0?'#ffaa00':'rgba(255,255,255,0.15)'};border-radius:3px"></span></span><span style="font-size:0.65em;color:rgba(255,255,255,0.35)">${topic.progress}%</span></span>` : ''}
                     <button class="lesson-action-btn" onclick="event.stopPropagation();app.editTopic('${topic.id}')" title="Editar tema">✎</button>
                     <button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteTopic('${topic.id}')" title="Esborrar tema">✖</button>
                 </div>
