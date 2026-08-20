@@ -657,7 +657,32 @@
             <div class="lesson-detail-body" id="lessonDetailBody"></div>
         </div>
 
-        <details class="import-export">
+        <!-- Skool Capture Tool -->
+        <div class="skool-capture" style="margin-top:20px;padding:18px;background:rgba(212,146,10,0.06);border:1px solid rgba(212,146,10,0.15);border-radius:12px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                <span style="font-size:1.2em">&#128268;</span>
+                <strong style="color:#ffaa00;font-size:0.92em">Captura de Skool</strong>
+            </div>
+            <p style="font-size:0.82em;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:14px">
+                Arrossega el bot&oacute; <strong style="color:#ffaa00">&quot;Capturar Skool&quot;</strong> a la teva barra de favorits.
+                Despr&eacute;s, navega a qualsevol p&agrave;gina del curs a Skool (loguejat) i clica el bookmarklet.
+                Copiar&agrave; el contingut al porta-retalls &mdash; torna aqu&iacute; i clica <strong style="color:#ffaa00">&quot;Enganxar captura&quot;</strong>.
+            </p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+                <a id="skoolBookmarklet" class="btn-small" style="background:linear-gradient(180deg,#d4920a 0%,#a06800 100%);color:#fff;border:none;text-decoration:none;cursor:grab;padding:9px 18px;font-size:0.85em" draggable="true">&#128268; Capturar Skool</a>
+                <button class="btn-small" onclick="app.pasteCapture()" style="padding:9px 18px">&#128203; Enganxar captura</button>
+                <button class="btn-small" onclick="app.captureFromClipboard()" style="padding:9px 18px">&#128196; Des del porta-retalls</button>
+            </div>
+            <div id="capturePreview" style="display:none;margin-top:14px;padding:14px;background:rgba(0,0,0,0.2);border-radius:8px;max-height:300px;overflow-y:auto">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                    <strong style="color:#ffaa00;font-size:0.85em" id="capturePreviewTitle"></strong>
+                    <button class="btn-small" onclick="app.importCapture()" style="background:linear-gradient(180deg,#d4920a 0%,#a06800 100%);color:#fff;border:none">Importar com a lli&ccedil;&oacute;</button>
+                </div>
+                <pre id="capturePreviewContent" style="font-size:0.78em;color:rgba(255,255,255,0.6);white-space:pre-wrap;margin:0"></pre>
+            </div>
+        </div>
+
+        <details class="import-export" style="margin-top:12px">
             <summary>Importar / Exportar dades del curs</summary>
             <div class="import-export-content">
                 <button class="btn-small" onclick="app.exportData()">Exportar JSON</button>
@@ -712,7 +737,7 @@ Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l
 
 <footer>
     Piano Teacher &middot; XRoig 2026
-    <p class="footer-version">v1.1</p>
+    <p class="footer-version">v1.2</p>
 </footer>
 
 <script>
@@ -1270,6 +1295,204 @@ const app = (() => {
         event.target.value = '';
     }
 
+    // Skool capture
+    let pendingCapture = null;
+
+    function buildBookmarklet() {
+        const code = `(function(){
+            var loc=location.href;
+            if(!loc.includes('skool.com')){alert('Obre una pàgina de Skool primer!');return;}
+            var result={url:loc,title:'',content:'',type:'',captured:new Date().toISOString()};
+            /* Classroom index - capture all modules and lessons */
+            if(loc.includes('/classroom')){
+                result.type='classroom-index';
+                var modules=[];
+                document.querySelectorAll('[class*="Module"],[class*="module"],[data-testid*="module"]').forEach(function(m){
+                    var title=m.querySelector('h2,h3,[class*="title"],[class*="Title"]');
+                    var lessons=[];
+                    m.querySelectorAll('[class*="lesson"],[class*="Lesson"],[class*="curriculum-item"]').forEach(function(l){
+                        var t=l.querySelector('span,p,a,div');
+                        if(t)lessons.push(t.textContent.trim());
+                    });
+                    if(title)modules.push({name:title.textContent.trim(),lessons:lessons});
+                });
+                if(modules.length===0){
+                    var headings=document.querySelectorAll('h2,h3');
+                    headings.forEach(function(h){
+                        var items=[];
+                        var next=h.nextElementSibling;
+                        while(next&&!['H2','H3'].includes(next.tagName)){
+                            var links=next.querySelectorAll('a,li,p');
+                            links.forEach(function(l){if(l.textContent.trim())items.push(l.textContent.trim());});
+                            next=next.nextElementSibling;
+                        }
+                        modules.push({name:h.textContent.trim(),lessons:items});
+                    });
+                }
+                if(modules.length===0){
+                    var all=document.querySelectorAll('a[href*="/classroom/"]');
+                    all.forEach(function(a){modules.push({name:a.textContent.trim(),lessons:[]});});
+                }
+                result.title='Index del Classroom';
+                result.content=JSON.stringify(modules,null,2);
+                if(modules.length===0){
+                    var body=document.querySelector('main,[role=main],.content,#__next');
+                    result.content=(body||document.body).innerText.substring(0,15000);
+                    result.type='classroom-raw';
+                }
+            }
+            /* Individual lesson/post page */
+            else{
+                result.type='lesson';
+                var h1=document.querySelector('h1,[class*="title"],[class*="Title"]');
+                result.title=h1?h1.textContent.trim():'Sense títol';
+                var contentEl=document.querySelector('[class*="content"],[class*="Content"],[class*="post-body"],[class*="PostBody"],article,main,[role=main]');
+                if(!contentEl)contentEl=document.querySelector('#__next');
+                if(contentEl){
+                    result.content=contentEl.innerText.substring(0,20000);
+                }else{
+                    result.content=document.body.innerText.substring(0,15000);
+                }
+                var videos=document.querySelectorAll('video,iframe[src*="youtube"],iframe[src*="vimeo"],iframe[src*="loom"]');
+                if(videos.length>0){
+                    result.videos=[];
+                    videos.forEach(function(v){
+                        result.videos.push(v.src||v.querySelector('source')&&v.querySelector('source').src||'video detectat');
+                    });
+                }
+            }
+            var json=JSON.stringify(result);
+            navigator.clipboard.writeText(json).then(function(){
+                alert('Captura copiada! ('+(result.type)+')\\n\\nTorna a Piano Teacher i clica "Enganxar captura".');
+            }).catch(function(){
+                prompt('Copia aquest text manualment:',json);
+            });
+        })();`;
+        return 'javascript:' + encodeURIComponent(code);
+    }
+
+    function initBookmarklet() {
+        const el = document.getElementById('skoolBookmarklet');
+        if (el) el.href = buildBookmarklet();
+    }
+
+    function pasteCapture() {
+        const text = prompt('Enganxa aquí el contingut capturat de Skool (JSON):');
+        if (!text) return;
+        processCapture(text);
+    }
+
+    async function captureFromClipboard() {
+        try {
+            const text = await navigator.clipboard.readText();
+            if (!text) { alert('El porta-retalls és buit'); return; }
+            processCapture(text);
+        } catch(e) {
+            pasteCapture();
+        }
+    }
+
+    function processCapture(text) {
+        try {
+            const data = JSON.parse(text);
+            pendingCapture = data;
+            const preview = document.getElementById('capturePreview');
+            document.getElementById('capturePreviewTitle').textContent =
+                (data.type === 'classroom-index' ? 'Index del Classroom' : data.title) +
+                ' (' + data.type + ')';
+
+            let previewText = '';
+            if (data.type === 'classroom-index') {
+                try {
+                    const modules = JSON.parse(data.content);
+                    modules.forEach(m => {
+                        previewText += '== ' + m.name + ' ==\n';
+                        m.lessons.forEach(l => previewText += '  - ' + l + '\n');
+                        previewText += '\n';
+                    });
+                } catch(e) {
+                    previewText = data.content.substring(0, 2000);
+                }
+            } else {
+                previewText = data.content.substring(0, 2000);
+                if (data.content.length > 2000) previewText += '\n\n... (truncat)';
+            }
+
+            document.getElementById('capturePreviewContent').textContent = previewText;
+            preview.style.display = 'block';
+            preview.scrollIntoView({ behavior: 'smooth' });
+        } catch(e) {
+            pendingCapture = { type: 'raw', title: 'Captura de text', content: text };
+            const preview = document.getElementById('capturePreview');
+            document.getElementById('capturePreviewTitle').textContent = 'Text capturat';
+            document.getElementById('capturePreviewContent').textContent = text.substring(0, 2000);
+            preview.style.display = 'block';
+        }
+    }
+
+    function importCapture() {
+        if (!pendingCapture) return;
+
+        if (pendingCapture.type === 'classroom-index') {
+            try {
+                const modules = JSON.parse(pendingCapture.content);
+                const topics = loadTopics();
+                const lessons = loadLessons();
+                let order = topics.length + 1;
+
+                modules.forEach(mod => {
+                    const topicId = 't_skool_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+                    topics.push({
+                        id: topicId,
+                        name: mod.name,
+                        desc: 'Importat de Skool — Piano Clásico en Casa',
+                        order: order++
+                    });
+                    mod.lessons.forEach(lessonTitle => {
+                        lessons.push({
+                            id: 'l_skool_' + Date.now() + '_' + Math.random().toString(36).substr(2,5),
+                            topicId: topicId,
+                            title: lessonTitle,
+                            content: 'FONT: Piano Clásico en Casa (Skool)\nImportat automàticament. Obre la lliçó a Skool i captura el contingut complet.',
+                            tags: ['skool', 'importat', 'raquel-garcia']
+                        });
+                    });
+                });
+                saveTopics(topics);
+                saveLessons(lessons);
+                alert('Importats ' + modules.length + ' mòduls amb les seves lliçons!');
+            } catch(e) {
+                importAsLesson(pendingCapture);
+                return;
+            }
+        } else {
+            importAsLesson(pendingCapture);
+        }
+
+        pendingCapture = null;
+        document.getElementById('capturePreview').style.display = 'none';
+        renderCourse();
+    }
+
+    function importAsLesson(data) {
+        const topics = loadTopics();
+        if (topics.length === 0) {
+            alert('Crea almenys un tema primer');
+            return;
+        }
+        document.getElementById('lessonModalTitle').textContent = 'Importar Captura de Skool';
+        document.getElementById('lessonName').value = data.title || 'Captura de Skool';
+        let content = 'FONT: Piano Clásico en Casa (Skool)\nURL: ' + (data.url || '') + '\n\n' + data.content;
+        if (data.videos && data.videos.length) {
+            content += '\n\nVídeos detectats:\n' + data.videos.map(v => '- ' + v).join('\n');
+        }
+        document.getElementById('lessonContent').value = content;
+        document.getElementById('lessonTags').value = 'skool, importat, raquel-garcia';
+        document.getElementById('lessonEditId').value = '';
+        populateTopicSelect();
+        document.getElementById('lessonModal').classList.add('active');
+    }
+
     // Keyboard shortcut
     document.getElementById('queryInput').addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -1281,13 +1504,15 @@ const app = (() => {
     // Init
     renderCourse();
     renderChat();
+    initBookmarklet();
 
     return {
         sendQuery, filterCourse, showAddTopic, showAddLesson,
         saveTopic, saveLesson, editTopic, editLesson,
         deleteTopic, deleteLesson, toggleComplete,
         showDetail, closeDetail, closeModal,
-        exportData, importData
+        exportData, importData,
+        pasteCapture, captureFromClipboard, importCapture
     };
 })();
 </script>
