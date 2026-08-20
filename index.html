@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Teacher</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 40%, #16213e 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 28px 20px 12px;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffaa00;
+            text-decoration: none;
+            font-size: 0.9em;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .back-btn:hover { opacity: 1; }
+        header h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffd700, #ffaa00, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header .subtitle {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px 24px 48px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0;
+        }
+        .tab {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.45);
+            font-size: 0.88em;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .tab:hover { color: rgba(255,255,255,0.7); }
+        .tab.active {
+            color: #ffaa00;
+            border-bottom-color: #ffaa00;
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Advisor panel */
+        .advisor-intro {
+            background: rgba(212,146,10,0.08);
+            border: 1px solid rgba(212,146,10,0.15);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            font-size: 0.88em;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.7);
+        }
+        .advisor-intro strong { color: #ffaa00; }
+
+        .query-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .query-box textarea {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,170,0,0.2);
+            background: rgba(255,255,255,0.04);
+            color: #e8e8e8;
+            font-size: 0.92em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 52px;
+            max-height: 200px;
+            transition: border-color 0.2s;
+        }
+        .query-box textarea:focus {
+            outline: none;
+            border-color: rgba(255,170,0,0.5);
+        }
+        .query-box textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .query-box button {
+            padding: 14px 24px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(180deg, #d4920a 0%, #a06800 100%);
+            color: #fff;
+            font-size: 0.88em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            align-self: flex-end;
+        }
+        .query-box button:hover {
+            background: linear-gradient(180deg, #e8a420 0%, #b87800 100%);
+            box-shadow: 0 4px 18px rgba(255,170,0,0.3);
+        }
+
+        .chat-history {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .chat-msg {
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.88em;
+            line-height: 1.65;
+            max-width: 88%;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-msg.user {
+            background: rgba(212,146,10,0.12);
+            border: 1px solid rgba(212,146,10,0.2);
+            align-self: flex-end;
+            color: #ffd080;
+        }
+        .chat-msg.assistant {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            align-self: flex-start;
+        }
+        .chat-msg .source-tag {
+            display: inline-block;
+            font-size: 0.7em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255,170,0,0.15);
+            color: #ffaa00;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .chat-msg pre {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+        .chat-msg ul, .chat-msg ol {
+            padding-left: 20px;
+            margin: 6px 0;
+        }
+
+        /* Course panel */
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .course-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #ffaa00;
+        }
+        .course-badge {
+            font-size: 0.7em;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(212,146,10,0.15);
+            color: #e8a420;
+            font-weight: 600;
+        }
+        .course-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+        }
+        .btn-small {
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,170,0,0.2);
+            background: rgba(255,255,255,0.04);
+            color: #ffaa00;
+            font-size: 0.78em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-small:hover {
+            background: rgba(255,170,0,0.1);
+            border-color: rgba(255,170,0,0.4);
+        }
+
+        .course-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 14px 18px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #ffaa00;
+        }
+        .stat-label {
+            font-size: 0.72em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+
+        /* Topic groups */
+        .topic-group {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .topic-group-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .topic-group-header:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        .topic-group-arrow {
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.3);
+            transition: transform 0.3s;
+        }
+        .topic-group.open .topic-group-arrow {
+            transform: rotate(90deg);
+        }
+        .topic-group-name {
+            font-size: 0.92em;
+            font-weight: 600;
+            color: #e8e8e8;
+        }
+        .topic-group-count {
+            font-size: 0.7em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255,170,0,0.1);
+            color: rgba(255,170,0,0.7);
+            margin-left: auto;
+        }
+        .topic-group-content {
+            display: none;
+            padding: 0 18px 14px;
+        }
+        .topic-group.open .topic-group-content {
+            display: block;
+        }
+
+        /* Lesson items */
+        .lesson-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lesson-item:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,170,0,0.15);
+        }
+        .lesson-item.completed {
+            opacity: 0.6;
+        }
+        .lesson-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+            margin-top: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .lesson-item.completed .lesson-check {
+            background: #d4920a;
+            border-color: #d4920a;
+        }
+        .lesson-item.completed .lesson-check::after {
+            content: '\2713';
+            color: #fff;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+        .lesson-title {
+            font-size: 0.85em;
+            font-weight: 500;
+            flex: 1;
+        }
+        .lesson-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .lesson-action-btn {
+            padding: 3px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.7em;
+            cursor: pointer;
+            font-weight: 600;
+            background: rgba(255,170,0,0.12);
+            color: #ffaa00;
+            transition: background 0.2s;
+        }
+        .lesson-action-btn:hover { background: rgba(255,170,0,0.25); }
+        .lesson-action-btn.del {
+            background: rgba(255,60,60,0.12);
+            color: #ff7070;
+        }
+        .lesson-action-btn.del:hover { background: rgba(255,60,60,0.25); }
+
+        /* Lesson detail view */
+        .lesson-detail {
+            display: none;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+        .lesson-detail.active { display: block; }
+        .lesson-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .lesson-detail-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #ffaa00;
+            flex: 1;
+        }
+        .lesson-detail-close {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .lesson-detail-close:hover { background: rgba(255,255,255,0.1); }
+        .lesson-detail-body {
+            font-size: 0.88em;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+            white-space: pre-wrap;
+        }
+        .lesson-detail-body h3 {
+            color: #ffaa00;
+            font-size: 1em;
+            margin: 16px 0 8px;
+        }
+        .lesson-detail-body h3:first-child { margin-top: 0; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal h3 {
+            color: #ffaa00;
+            font-size: 1em;
+            margin-bottom: 16px;
+        }
+        .modal label {
+            display: block;
+            font-size: 0.78em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .modal input, .modal textarea, .modal select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: #e8e8e8;
+            font-size: 0.88em;
+            font-family: inherit;
+            margin-bottom: 14px;
+        }
+        .modal textarea {
+            min-height: 200px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        .modal input:focus, .modal textarea:focus, .modal select:focus {
+            outline: none;
+            border-color: rgba(255,170,0,0.4);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+        .modal-actions button {
+            padding: 9px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .modal-actions .btn-cancel {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6);
+        }
+        .modal-actions .btn-save {
+            background: linear-gradient(180deg, #d4920a 0%, #a06800 100%);
+            color: #fff;
+        }
+        .modal-actions .btn-save:hover {
+            background: linear-gradient(180deg, #e8a420 0%, #b87800 100%);
+        }
+
+        /* Import/Export */
+        .import-export {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+        }
+        .import-export summary {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .import-export-content {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Search within course */
+        .course-search {
+            margin-bottom: 16px;
+        }
+        .course-search input {
+            width: 100%;
+            padding: 11px 16px 11px 38px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #e8e8e8;
+            font-size: 0.88em;
+            transition: border-color 0.2s;
+        }
+        .course-search input:focus {
+            outline: none;
+            border-color: rgba(255,170,0,0.3);
+        }
+        .course-search input::placeholder { color: rgba(255,255,255,0.2); }
+        .course-search-wrapper {
+            position: relative;
+        }
+        .course-search-wrapper::before {
+            content: '\1F50D';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85em;
+            opacity: 0.3;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.3);
+        }
+        .empty-state .ico { font-size: 2.5em; margin-bottom: 12px; }
+        .empty-state p { font-size: 0.88em; margin-bottom: 16px; }
+
+        footer {
+            text-align: center;
+            padding: 24px 20px;
+            color: #334;
+            font-size: 0.72em;
+        }
+        .footer-version { color: #ffaa00; margin-top: 4px; }
+
+        @media (max-width: 700px) {
+            header { padding: 20px 16px 8px; }
+            header h1 { font-size: 1.4em; }
+            .container { padding: 12px 16px 32px; }
+            .query-box { flex-direction: column; }
+            .query-box button { align-self: stretch; }
+            .course-stats { flex-direction: column; gap: 8px; }
+            .stat-card { padding: 10px 14px; }
+            .stat-value { font-size: 1.4em; }
+            .chat-msg { max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="back-btn" href="../index.html">&larr; Apps</a>
+    <h1>Piano Teacher</h1>
+    <p class="subtitle">Assessor professional per dominar el piano</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab active" data-tab="advisor">Assessor IA</button>
+        <button class="tab" data-tab="course">Curs: Piano Cl&aacute;sico en Casa</button>
+    </div>
+
+    <!-- ADVISOR TAB -->
+    <div id="tab-advisor" class="tab-panel active">
+        <div class="advisor-intro">
+            <strong>Piano Teacher</strong> combina coneixement d'IA sobre t&egrave;cnica, teoria i pedagogia del piano amb el contingut del teu curs <strong>&quot;Piano Cl&aacute;sico en Casa&quot;</strong>. Fes qualsevol pregunta &mdash; buscar&agrave; primer a la teva base de coneixement i complementar&agrave; amb consell expert.
+        </div>
+        <div class="query-box">
+            <textarea id="queryInput" placeholder="Pregunta'm sobre t&egrave;cnica, teoria, exercicis, repertori..." rows="2"></textarea>
+            <button onclick="app.sendQuery()">Consultar</button>
+        </div>
+        <div id="chatHistory" class="chat-history"></div>
+    </div>
+
+    <!-- COURSE TAB -->
+    <div id="tab-course" class="tab-panel">
+        <div class="course-header">
+            <span class="course-title">Piano Cl&aacute;sico en Casa</span>
+            <span class="course-badge">Skool</span>
+            <div class="course-actions">
+                <button class="btn-small" onclick="app.showAddTopic()">+ Tema</button>
+                <button class="btn-small" onclick="app.showAddLesson()">+ Lli&ccedil;&oacute;</button>
+            </div>
+        </div>
+
+        <div class="course-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="statTopics">0</div>
+                <div class="stat-label">Temes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statLessons">0</div>
+                <div class="stat-label">Lli&ccedil;ons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statCompleted">0</div>
+                <div class="stat-label">Completades</div>
+            </div>
+        </div>
+
+        <div class="course-search">
+            <div class="course-search-wrapper">
+                <input type="text" id="courseSearch" placeholder="Cercar dins el curs..." oninput="app.filterCourse(this.value)">
+            </div>
+        </div>
+
+        <div id="courseIndex"></div>
+
+        <!-- Lesson detail -->
+        <div id="lessonDetail" class="lesson-detail">
+            <div class="lesson-detail-header">
+                <span class="lesson-detail-title" id="lessonDetailTitle"></span>
+                <button class="lesson-detail-close" onclick="app.closeDetail()">&times; Tancar</button>
+            </div>
+            <div class="lesson-detail-body" id="lessonDetailBody"></div>
+        </div>
+
+        <details class="import-export">
+            <summary>Importar / Exportar dades del curs</summary>
+            <div class="import-export-content">
+                <button class="btn-small" onclick="app.exportData()">Exportar JSON</button>
+                <button class="btn-small" onclick="document.getElementById('importFile').click()">Importar JSON</button>
+                <input type="file" id="importFile" accept=".json" style="display:none" onchange="app.importData(event)">
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- Add/Edit Topic Modal -->
+<div id="topicModal" class="modal-overlay">
+    <div class="modal">
+        <h3 id="topicModalTitle">Afegir Tema</h3>
+        <label>Nom del tema</label>
+        <input type="text" id="topicName" placeholder="Ex: T&egrave;cnica b&agrave;sica">
+        <label>Descripci&oacute; (opcional)</label>
+        <textarea id="topicDesc" style="min-height:80px" placeholder="Breu descripci&oacute; del tema..."></textarea>
+        <label>Ordre (n&uacute;mero)</label>
+        <input type="number" id="topicOrder" value="0" min="0">
+        <input type="hidden" id="topicEditId">
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="app.closeModal('topicModal')">Cancel&middot;lar</button>
+            <button class="btn-save" onclick="app.saveTopic()">Desar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Lesson Modal -->
+<div id="lessonModal" class="modal-overlay">
+    <div class="modal">
+        <h3 id="lessonModalTitle">Afegir Lli&ccedil;&oacute;</h3>
+        <label>Tema</label>
+        <select id="lessonTopic"></select>
+        <label>T&iacute;tol de la lli&ccedil;&oacute;</label>
+        <input type="text" id="lessonName" placeholder="Ex: Posici&oacute; de les mans">
+        <label>Contingut / Apunts</label>
+        <textarea id="lessonContent" placeholder="Afegeix aqu&iacute; els teus apunts, resums, conceptes clau del curs...
+
+Pots usar format lliure: text, llistes, exemples...
+
+Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l'Assessor IA."></textarea>
+        <label>Tags (separats per comes)</label>
+        <input type="text" id="lessonTags" placeholder="Ex: t&egrave;cnica, postura, mans">
+        <input type="hidden" id="lessonEditId">
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="app.closeModal('lessonModal')">Cancel&middot;lar</button>
+            <button class="btn-save" onclick="app.saveLesson()">Desar</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Piano Teacher &middot; XRoig 2026
+    <p class="footer-version">v1.0</p>
+</footer>
+
+<script>
+const app = (() => {
+    const STORAGE_TOPICS = 'piano-teacher-topics';
+    const STORAGE_LESSONS = 'piano-teacher-lessons';
+    const STORAGE_CHAT = 'piano-teacher-chat';
+    const STORAGE_COMPLETED = 'piano-teacher-completed';
+
+    function loadTopics() {
+        const s = localStorage.getItem(STORAGE_TOPICS);
+        if (s) return JSON.parse(s);
+        return getDefaultTopics();
+    }
+
+    function loadLessons() {
+        const s = localStorage.getItem(STORAGE_LESSONS);
+        if (s) return JSON.parse(s);
+        return getDefaultLessons();
+    }
+
+    function loadChat() {
+        const s = localStorage.getItem(STORAGE_CHAT);
+        return s ? JSON.parse(s) : [];
+    }
+
+    function loadCompleted() {
+        const s = localStorage.getItem(STORAGE_COMPLETED);
+        return s ? JSON.parse(s) : {};
+    }
+
+    function saveTopics(t) { localStorage.setItem(STORAGE_TOPICS, JSON.stringify(t)); }
+    function saveLessons(l) { localStorage.setItem(STORAGE_LESSONS, JSON.stringify(l)); }
+    function saveChat(c) { localStorage.setItem(STORAGE_CHAT, JSON.stringify(c)); }
+    function saveCompleted(c) { localStorage.setItem(STORAGE_COMPLETED, JSON.stringify(c)); }
+
+    function getDefaultTopics() {
+        return [
+            { id: 't1', name: 'Fonaments i Postura', desc: 'Posició corporal, mans, dits i relació amb el teclat', order: 1 },
+            { id: 't2', name: 'Lectura Musical', desc: 'Solfeig, claus, pentagrama, ritme i compàs', order: 2 },
+            { id: 't3', name: 'Tècnica', desc: 'Escales, arpegis, exercicis de digitació i independència', order: 3 },
+            { id: 't4', name: 'Teoria i Harmonia', desc: 'Acords, progressions, tonalitats i modulació', order: 4 },
+            { id: 't5', name: 'Interpretació', desc: 'Dinàmica, expressivitat, fraseig i pedal', order: 5 },
+            { id: 't6', name: 'Repertori', desc: 'Peces clàssiques, estudis i obres recomanades', order: 6 },
+            { id: 't7', name: 'Pràctica i Metodologia', desc: 'Com estudiar, planificació i hàbits', order: 7 },
+        ];
+    }
+
+    function getDefaultLessons() {
+        return [
+            {
+                id: 'l1', topicId: 't1', title: 'Posició correcta al piano',
+                content: 'INSTRUCCIONS: Substitueix aquest text pels teus apunts del curs "Piano Clásico en Casa".\n\nIdees clau a capturar:\n- Alçada del seient\n- Distància al teclat\n- Posició dels braços i colzes\n- Curvatura dels dits\n- Relaxació muscular',
+                tags: ['postura', 'fonaments', 'mans']
+            },
+            {
+                id: 'l2', topicId: 't1', title: 'Numeració dels dits i posició bàsica',
+                content: 'INSTRUCCIONS: Afegeix aquí els teus apunts.\n\n- Numeració: polze=1, índex=2, cor=3, anular=4, mínim=5\n- Posició de Do central\n- Primers exercicis de 5 notes',
+                tags: ['digitació', 'fonaments', 'dits']
+            },
+            {
+                id: 'l3', topicId: 't2', title: 'El pentagrama i les claus',
+                content: 'INSTRUCCIONS: Afegeix aquí els teus apunts.\n\n- Clau de Sol (mà dreta)\n- Clau de Fa (mà esquerra)\n- Línies i espais\n- Notes addicionals',
+                tags: ['lectura', 'pentagrama', 'claus']
+            },
+            {
+                id: 'l4', topicId: 't3', title: 'Escales majors',
+                content: 'INSTRUCCIONS: Afegeix aquí els teus apunts.\n\n- Patró: T-T-S-T-T-T-S\n- Digitació estàndard\n- Escala de Do major\n- Pas del polze',
+                tags: ['escales', 'tècnica', 'digitació']
+            },
+            {
+                id: 'l5', topicId: 't4', title: 'Acords bàsics: major i menor',
+                content: 'INSTRUCCIONS: Afegeix aquí els teus apunts.\n\n- Acord major: fonamental + 3a major + 5a justa\n- Acord menor: fonamental + 3a menor + 5a justa\n- Inversions bàsiques',
+                tags: ['acords', 'harmonia', 'teoria']
+            },
+        ];
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Render course index
+    function renderCourse(filter = '') {
+        const topics = loadTopics().sort((a, b) => a.order - b.order);
+        const lessons = loadLessons();
+        const completed = loadCompleted();
+        const container = document.getElementById('courseIndex');
+        const filterLower = filter.toLowerCase();
+
+        let totalLessons = 0;
+        let totalCompleted = 0;
+        let html = '';
+
+        topics.forEach(topic => {
+            let topicLessons = lessons.filter(l => l.topicId === topic.id);
+            if (filterLower) {
+                topicLessons = topicLessons.filter(l =>
+                    l.title.toLowerCase().includes(filterLower) ||
+                    l.content.toLowerCase().includes(filterLower) ||
+                    (l.tags || []).some(t => t.toLowerCase().includes(filterLower))
+                );
+            }
+            if (filterLower && topicLessons.length === 0) return;
+
+            totalLessons += topicLessons.length;
+            const completedCount = topicLessons.filter(l => completed[l.id]).length;
+            totalCompleted += completedCount;
+
+            html += `<div class="topic-group${topicLessons.length > 0 ? ' open' : ''}">
+                <div class="topic-group-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="topic-group-arrow">▶</span>
+                    <span class="topic-group-name">${topic.name}</span>
+                    <span class="topic-group-count">${completedCount}/${topicLessons.length}</span>
+                    <button class="lesson-action-btn" onclick="event.stopPropagation();app.editTopic('${topic.id}')" title="Editar tema">✎</button>
+                    <button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteTopic('${topic.id}')" title="Esborrar tema">✖</button>
+                </div>
+                <div class="topic-group-content">`;
+
+            if (topic.desc) {
+                html += `<p style="font-size:0.8em;color:rgba(255,255,255,0.35);margin-bottom:10px;font-style:italic">${topic.desc}</p>`;
+            }
+
+            topicLessons.forEach(lesson => {
+                const isCompleted = completed[lesson.id] ? ' completed' : '';
+                html += `<div class="lesson-item${isCompleted}" data-id="${lesson.id}">
+                    <div class="lesson-check" onclick="event.stopPropagation();app.toggleComplete('${lesson.id}')"></div>
+                    <span class="lesson-title" onclick="app.showDetail('${lesson.id}')">${lesson.title}</span>
+                    <div class="lesson-actions">
+                        <button class="lesson-action-btn" onclick="event.stopPropagation();app.editLesson('${lesson.id}')">✎</button>
+                        <button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteLesson('${lesson.id}')">✖</button>
+                    </div>
+                </div>`;
+            });
+
+            if (topicLessons.length === 0) {
+                html += `<p style="font-size:0.8em;color:rgba(255,255,255,0.2);text-align:center;padding:8px">Cap lliçó encara</p>`;
+            }
+
+            html += `</div></div>`;
+        });
+
+        if (!html) {
+            html = `<div class="empty-state">
+                <div class="ico">🎹</div>
+                <p>Cap resultat trobat. Afegeix temes i lliçons per construir la teva base de coneixement.</p>
+            </div>`;
+        }
+
+        container.innerHTML = html;
+        document.getElementById('statTopics').textContent = topics.length;
+        document.getElementById('statLessons').textContent = lessons.length;
+        document.getElementById('statCompleted').textContent = Object.values(completed).filter(Boolean).length;
+    }
+
+    function toggleComplete(lessonId) {
+        const completed = loadCompleted();
+        completed[lessonId] = !completed[lessonId];
+        saveCompleted(completed);
+        renderCourse(document.getElementById('courseSearch').value);
+    }
+
+    function showDetail(lessonId) {
+        const lessons = loadLessons();
+        const lesson = lessons.find(l => l.id === lessonId);
+        if (!lesson) return;
+        document.getElementById('lessonDetailTitle').textContent = lesson.title;
+        const body = document.getElementById('lessonDetailBody');
+        body.textContent = lesson.content;
+        if (lesson.tags && lesson.tags.length) {
+            body.textContent += '\n\nTags: ' + lesson.tags.join(', ');
+        }
+        document.getElementById('lessonDetail').classList.add('active');
+        document.getElementById('lessonDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeDetail() {
+        document.getElementById('lessonDetail').classList.remove('active');
+    }
+
+    // Modals
+    function showAddTopic() {
+        document.getElementById('topicModalTitle').textContent = 'Afegir Tema';
+        document.getElementById('topicName').value = '';
+        document.getElementById('topicDesc').value = '';
+        document.getElementById('topicOrder').value = loadTopics().length + 1;
+        document.getElementById('topicEditId').value = '';
+        document.getElementById('topicModal').classList.add('active');
+    }
+
+    function editTopic(id) {
+        const topic = loadTopics().find(t => t.id === id);
+        if (!topic) return;
+        document.getElementById('topicModalTitle').textContent = 'Editar Tema';
+        document.getElementById('topicName').value = topic.name;
+        document.getElementById('topicDesc').value = topic.desc || '';
+        document.getElementById('topicOrder').value = topic.order;
+        document.getElementById('topicEditId').value = id;
+        document.getElementById('topicModal').classList.add('active');
+    }
+
+    function saveTopic() {
+        const name = document.getElementById('topicName').value.trim();
+        if (!name) return alert('Cal un nom pel tema');
+        const topics = loadTopics();
+        const editId = document.getElementById('topicEditId').value;
+        if (editId) {
+            const t = topics.find(t => t.id === editId);
+            if (t) {
+                t.name = name;
+                t.desc = document.getElementById('topicDesc').value.trim();
+                t.order = parseInt(document.getElementById('topicOrder').value) || 0;
+            }
+        } else {
+            topics.push({
+                id: 't' + Date.now(),
+                name,
+                desc: document.getElementById('topicDesc').value.trim(),
+                order: parseInt(document.getElementById('topicOrder').value) || 0
+            });
+        }
+        saveTopics(topics);
+        closeModal('topicModal');
+        renderCourse();
+    }
+
+    function deleteTopic(id) {
+        if (!confirm('Esborrar aquest tema i totes les seves lliçons?')) return;
+        const topics = loadTopics().filter(t => t.id !== id);
+        const lessons = loadLessons().filter(l => l.topicId !== id);
+        saveTopics(topics);
+        saveLessons(lessons);
+        renderCourse();
+    }
+
+    function showAddLesson() {
+        document.getElementById('lessonModalTitle').textContent = 'Afegir Lliçó';
+        document.getElementById('lessonName').value = '';
+        document.getElementById('lessonContent').value = '';
+        document.getElementById('lessonTags').value = '';
+        document.getElementById('lessonEditId').value = '';
+        populateTopicSelect();
+        document.getElementById('lessonModal').classList.add('active');
+    }
+
+    function editLesson(id) {
+        const lesson = loadLessons().find(l => l.id === id);
+        if (!lesson) return;
+        document.getElementById('lessonModalTitle').textContent = 'Editar Lliçó';
+        document.getElementById('lessonName').value = lesson.title;
+        document.getElementById('lessonContent').value = lesson.content;
+        document.getElementById('lessonTags').value = (lesson.tags || []).join(', ');
+        document.getElementById('lessonEditId').value = id;
+        populateTopicSelect(lesson.topicId);
+        document.getElementById('lessonModal').classList.add('active');
+    }
+
+    function populateTopicSelect(selectedId) {
+        const topics = loadTopics().sort((a, b) => a.order - b.order);
+        const sel = document.getElementById('lessonTopic');
+        sel.innerHTML = topics.map(t =>
+            `<option value="${t.id}" ${t.id === selectedId ? 'selected' : ''}>${t.name}</option>`
+        ).join('');
+    }
+
+    function saveLesson() {
+        const title = document.getElementById('lessonName').value.trim();
+        if (!title) return alert('Cal un títol');
+        const lessons = loadLessons();
+        const editId = document.getElementById('lessonEditId').value;
+        const topicId = document.getElementById('lessonTopic').value;
+        const content = document.getElementById('lessonContent').value;
+        const tags = document.getElementById('lessonTags').value.split(',').map(t => t.trim()).filter(Boolean);
+
+        if (editId) {
+            const l = lessons.find(l => l.id === editId);
+            if (l) { l.title = title; l.topicId = topicId; l.content = content; l.tags = tags; }
+        } else {
+            lessons.push({ id: 'l' + Date.now(), topicId, title, content, tags });
+        }
+        saveLessons(lessons);
+        closeModal('lessonModal');
+        renderCourse();
+    }
+
+    function deleteLesson(id) {
+        if (!confirm('Esborrar aquesta lliçó?')) return;
+        const lessons = loadLessons().filter(l => l.id !== id);
+        saveLessons(lessons);
+        renderCourse();
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+
+    function filterCourse(val) {
+        renderCourse(val);
+    }
+
+    // Advisor / Chat
+    function searchKnowledgeBase(query) {
+        const lessons = loadLessons();
+        const queryLower = query.toLowerCase();
+        const words = queryLower.split(/\s+/).filter(w => w.length > 2);
+
+        const results = lessons.map(lesson => {
+            let score = 0;
+            const text = (lesson.title + ' ' + lesson.content + ' ' + (lesson.tags || []).join(' ')).toLowerCase();
+            words.forEach(word => {
+                const regex = new RegExp(word, 'gi');
+                const matches = text.match(regex);
+                if (matches) score += matches.length;
+                if (lesson.title.toLowerCase().includes(word)) score += 3;
+                if ((lesson.tags || []).some(t => t.toLowerCase().includes(word))) score += 2;
+            });
+            return { lesson, score };
+        }).filter(r => r.score > 0).sort((a, b) => b.score - a.score).slice(0, 5);
+
+        return results;
+    }
+
+    function generateResponse(query, kbResults) {
+        const topics = loadTopics();
+
+        let response = '';
+
+        if (kbResults.length > 0) {
+            response += '<span class="source-tag">Base de Coneixement</span>\n\n';
+            response += 'He trobat contingut rellevant als teus apunts del curs:\n\n';
+            kbResults.forEach((r, i) => {
+                const topic = topics.find(t => t.id === r.lesson.topicId);
+                const topicName = topic ? topic.name : 'Sense tema';
+                response += `<strong>${i + 1}. ${r.lesson.title}</strong> <em>(${topicName})</em>\n`;
+                const preview = r.lesson.content.substring(0, 300);
+                response += preview + (r.lesson.content.length > 300 ? '...' : '') + '\n\n';
+            });
+            response += '---\n\n';
+        }
+
+        response += '<span class="source-tag">Assessor IA</span>\n\n';
+        response += generateAIAdvice(query, kbResults);
+
+        return response;
+    }
+
+    function generateAIAdvice(query, kbResults) {
+        const q = query.toLowerCase();
+        const advice = [];
+
+        if (q.includes('escala') || q.includes('scale')) {
+            advice.push(
+                '<strong>Sobre escales:</strong>\n' +
+                '• Comença sempre lentament amb metrònom (60 BPM)\n' +
+                '• Practica mans separades abans de juntar-les\n' +
+                '• Vigila el pas del polze: ha de ser suau, sense moure el canell\n' +
+                '• Escales recomanades per començar: Do M, Sol M, Re M, Fa M\n' +
+                '• Progressió de velocitat: augmenta 4 BPM quan domini la velocitat actual\n' +
+                '• Practica en ritmes variats: corxeres, semicorxeres, puntillats'
+            );
+        }
+
+        if (q.includes('acord') || q.includes('chord') || q.includes('harmonia')) {
+            advice.push(
+                '<strong>Sobre acords i harmonia:</strong>\n' +
+                '• Domína primer els acords majors i menors en totes les tonalitats\n' +
+                '• Practica les 3 inversions de cada acord\n' +
+                '• Progressió clàssica per practicar: I-IV-V-I\n' +
+                '• Afegeix acords de 7a quan dominis les tríades\n' +
+                '• Escolta les progressions en peces que estudies'
+            );
+        }
+
+        if (q.includes('postura') || q.includes('posició') || q.includes('mà') || q.includes('mans') || q.includes('dit')) {
+            advice.push(
+                '<strong>Sobre postura i posició:</strong>\n' +
+                '• Seient a l\'alçada que els avantbraços quedin paral·lels al terra\n' +
+                '• Esquena recta però no tensa\n' +
+                '• Dits corbats com si tinguessis una pilota de tennis a la mà\n' +
+                '• Canells relaxats, ni massa amunt ni massa avall\n' +
+                '• Braços lliures, colzes lleugerament separats del cos\n' +
+                '• Fes pauses cada 25-30 minuts per evitar tensió'
+            );
+        }
+
+        if (q.includes('pedal')) {
+            advice.push(
+                '<strong>Sobre l\'us del pedal:</strong>\n' +
+                '• Pedal de sustain (dret): el més usat, manté les notes sonant\n' +
+                '• Tècnica bàsica: "pedal sincopat" - prémer just després de tocar la nota\n' +
+                '• No abuseu del pedal: les harmonies no han de barrejar-se\n' +
+                '• Practica primer sense pedal, afegeix-lo quan la peça sona neta'
+            );
+        }
+
+        if (q.includes('estudiar') || q.includes('pràctica') || q.includes('practicar') || q.includes('rutina') || q.includes('hàbit')) {
+            advice.push(
+                '<strong>Sobre com estudiar:</strong>\n' +
+                '• Millor 30 min diaris que 3 hores un dia\n' +
+                '• Estructura la sessió: escalfament (5 min), tècnica (10 min), peces (15 min)\n' +
+                '• Treballa passatges difícils aïllats, no repeteixis tota la peça\n' +
+                '• Usa metrònom SEMPRE a l\'inici\n' +
+                '• Grava\'t per escoltar-te objectivament\n' +
+                '• Descansa: el cervell consolida durant el descans'
+            );
+        }
+
+        if (q.includes('peça') || q.includes('repertori') || q.includes('obra') || q.includes('començar') || q.includes('fàcil') || q.includes('principiant')) {
+            advice.push(
+                '<strong>Repertori recomanat per nivell:</strong>\n\n' +
+                '<em>Principiant:</em>\n' +
+                '• Bach: Minuets del Quadern d\'Anna Magdalena\n' +
+                '• Beethoven: Per a Elisa (versió simplificada)\n' +
+                '• Schumann: Àlbum de la Joventut Op. 68\n' +
+                '• Bartók: Mikrokosmos Vol. 1-2\n\n' +
+                '<em>Intermedi:</em>\n' +
+                '• Bach: Invencions a 2 veus\n' +
+                '• Mozart: Sonates fàcils (K.545)\n' +
+                '• Chopin: Valsos i Preludi Op. 28\n' +
+                '• Debussy: Arabesques'
+            );
+        }
+
+        if (q.includes('metrònom') || q.includes('tempo') || q.includes('ritme') || q.includes('velocitat')) {
+            advice.push(
+                '<strong>Sobre tempo i metrònom:</strong>\n' +
+                '• Sempre comença a un tempo on puguis tocar SENSE errors\n' +
+                '• La precisió és més important que la velocitat\n' +
+                '• Augmenta de 4 en 4 BPM\n' +
+                '• Si fas errors, torna enrere 8 BPM\n' +
+                '• Varia el ritme: puntillats, agrupacions de 3, síncopes'
+            );
+        }
+
+        if (q.includes('lectura') || q.includes('solfeig') || q.includes('partitura') || q.includes('nota') || q.includes('pentagrama')) {
+            advice.push(
+                '<strong>Sobre lectura musical:</strong>\n' +
+                '• Practica lectura a primera vista 5-10 min diaris\n' +
+                '• Mira sempre uns compassos endavant\n' +
+                '• Identifica patrons (escales, arpegis) en lloc de nota a nota\n' +
+                '• Usa apps com "Entrenador de Partitures" per practicar\n' +
+                '• Llegeix en totes dues claus (Sol i Fa) des del principi'
+            );
+        }
+
+        if (advice.length === 0) {
+            advice.push(
+                'Sobre la teva consulta, et puc aconsellar:\n\n' +
+                '• Si tens dubtes específics sobre tècnica, postura, escales, acords, repertori, pedal, lectura o metodologia d\'estudi, reformula la pregunta amb aquestes paraules clau.\n' +
+                '• Afegeix contingut del teu curs "Piano Clásico en Casa" a la pestanya de Curs per enriquir les respostes.\n' +
+                '• Com més detallats siguin els teus apunts, més precises seran les consultes.\n\n' +
+                '<em>Exemples de consultes:</em>\n' +
+                '• "Com millorar la tècnica d\'escales?"\n' +
+                '• "Quina postura correcta al piano?"\n' +
+                '• "Repertori per a principiants"\n' +
+                '• "Com estudiar de manera efectiva?"'
+            );
+        }
+
+        return advice.join('\n\n');
+    }
+
+    function sendQuery() {
+        const input = document.getElementById('queryInput');
+        const query = input.value.trim();
+        if (!query) return;
+
+        const chat = loadChat();
+        chat.push({ role: 'user', text: query, time: new Date().toISOString() });
+
+        const kbResults = searchKnowledgeBase(query);
+        const response = generateResponse(query, kbResults);
+        chat.push({ role: 'assistant', text: response, time: new Date().toISOString() });
+
+        saveChat(chat);
+        input.value = '';
+        renderChat();
+    }
+
+    function renderChat() {
+        const chat = loadChat();
+        const container = document.getElementById('chatHistory');
+        container.innerHTML = chat.map(msg =>
+            `<div class="chat-msg ${msg.role}">${msg.role === 'user' ? escapeHtml(msg.text) : msg.text}</div>`
+        ).join('');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Import/Export
+    function exportData() {
+        const data = {
+            topics: loadTopics(),
+            lessons: loadLessons(),
+            completed: loadCompleted(),
+            exported: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'piano-teacher-backup.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function importData(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data.topics) saveTopics(data.topics);
+                if (data.lessons) saveLessons(data.lessons);
+                if (data.completed) saveCompleted(data.completed);
+                renderCourse();
+                alert('Dades importades correctament!');
+            } catch (err) {
+                alert('Error important el fitxer: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+    }
+
+    // Keyboard shortcut
+    document.getElementById('queryInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendQuery();
+        }
+    });
+
+    // Init
+    renderCourse();
+    renderChat();
+
+    return {
+        sendQuery, filterCourse, showAddTopic, showAddLesson,
+        saveTopic, saveLesson, editTopic, editLesson,
+        deleteTopic, deleteLesson, toggleComplete,
+        showDetail, closeDetail, closeModal,
+        exportData, importData
+    };
+})();
+</script>
+
+</body>
+</html>
