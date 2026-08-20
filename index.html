@@ -737,7 +737,7 @@ Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l
 
 <footer>
     Piano Teacher &middot; XRoig 2026
-    <p class="footer-version">v1.3</p>
+    <p class="footer-version">v1.4</p>
 </footer>
 
 <script>
@@ -746,6 +746,7 @@ const app = (() => {
     const STORAGE_LESSONS = 'piano-teacher-lessons';
     const STORAGE_CHAT = 'piano-teacher-chat';
     const STORAGE_COMPLETED = 'piano-teacher-completed';
+    const COURSE_VERSION = 2;
 
     function checkCourseVersion() {
         const stored = localStorage.getItem('piano-teacher-course-version');
@@ -784,8 +785,6 @@ const app = (() => {
     function saveLessons(l) { localStorage.setItem(STORAGE_LESSONS, JSON.stringify(l)); }
     function saveChat(c) { localStorage.setItem(STORAGE_CHAT, JSON.stringify(c)); }
     function saveCompleted(c) { localStorage.setItem(STORAGE_COMPLETED, JSON.stringify(c)); }
-
-    const COURSE_VERSION = 2;
 
     function getDefaultTopics() {
         return [
