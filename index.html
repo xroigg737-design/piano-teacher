@@ -57,19 +57,21 @@
             margin-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             padding-bottom: 0;
+            overflow-x: auto;
         }
         .tab {
-            padding: 10px 24px;
+            padding: 10px 20px;
             background: transparent;
             border: none;
             color: rgba(255,255,255,0.45);
-            font-size: 0.88em;
+            font-size: 0.82em;
             font-weight: 600;
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: all 0.2s;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
+            white-space: nowrap;
         }
         .tab:hover { color: rgba(255,255,255,0.7); }
         .tab.active {
@@ -175,6 +177,10 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        .chat-msg .source-tag.yt {
+            background: rgba(255,0,0,0.12);
+            color: #ff6666;
+        }
         .chat-msg pre {
             background: rgba(0,0,0,0.3);
             padding: 10px 14px;
@@ -194,6 +200,7 @@
             align-items: center;
             gap: 14px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         .course-title {
             font-size: 1.15em;
@@ -233,9 +240,11 @@
             display: flex;
             gap: 16px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         .stat-card {
             flex: 1;
+            min-width: 100px;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.06);
             border-radius: 10px;
@@ -419,6 +428,149 @@
         }
         .lesson-detail-body h3:first-child { margin-top: 0; }
 
+        /* YouTube tab */
+        .yt-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .yt-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #ff4444;
+        }
+        .yt-badge {
+            font-size: 0.7em;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(255,0,0,0.12);
+            color: #ff6666;
+            font-weight: 600;
+        }
+        .yt-search {
+            margin-bottom: 16px;
+        }
+        .yt-search-wrapper {
+            position: relative;
+        }
+        .yt-search-wrapper::before {
+            content: '\1F50D';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85em;
+            opacity: 0.3;
+        }
+        .yt-search input {
+            width: 100%;
+            padding: 11px 16px 11px 38px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #e8e8e8;
+            font-size: 0.88em;
+            transition: border-color 0.2s;
+        }
+        .yt-search input:focus {
+            outline: none;
+            border-color: rgba(255,68,68,0.3);
+        }
+        .yt-search input::placeholder { color: rgba(255,255,255,0.2); }
+
+        .yt-video-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.2s;
+        }
+        .yt-video-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,68,68,0.15);
+        }
+        .yt-video-icon {
+            font-size: 1.4em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .yt-video-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .yt-video-title {
+            font-size: 0.88em;
+            font-weight: 600;
+            color: #e8e8e8;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+        .yt-video-title:hover { color: #ffaa00; }
+        .yt-video-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.72em;
+            color: rgba(255,255,255,0.35);
+            flex-wrap: wrap;
+        }
+        .yt-video-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .yt-btn {
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,68,68,0.2);
+            background: rgba(255,68,68,0.08);
+            color: #ff6666;
+            font-size: 0.72em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .yt-btn:hover {
+            background: rgba(255,68,68,0.18);
+            border-color: rgba(255,68,68,0.4);
+        }
+        .yt-transcript-preview {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 0.82em;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.6);
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .yt-transcript-preview.open { display: block; }
+        .yt-loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.3);
+        }
+        .yt-loading .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255,68,68,0.15);
+            border-top: 3px solid #ff4444;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         /* Modal */
         .modal-overlay {
             display: none;
@@ -579,6 +731,10 @@
             .stat-card { padding: 10px 14px; }
             .stat-value { font-size: 1.4em; }
             .chat-msg { max-width: 95%; }
+            .tabs { gap: 2px; }
+            .tab { padding: 8px 12px; font-size: 0.75em; }
+            .yt-video-card { flex-direction: column; }
+            .yt-video-actions { align-self: flex-start; }
         }
     </style>
 </head>
@@ -594,12 +750,13 @@
     <div class="tabs">
         <button class="tab active" data-tab="advisor">Assessor IA</button>
         <button class="tab" data-tab="course">Curs: Piano Cl&aacute;sico en Casa</button>
+        <button class="tab" data-tab="youtube">YouTube: Raquel Garcia</button>
     </div>
 
     <!-- ADVISOR TAB -->
     <div id="tab-advisor" class="tab-panel active">
         <div class="advisor-intro">
-            <strong>Piano Teacher</strong> combina coneixement d'IA sobre t&egrave;cnica, teoria i pedagogia del piano amb el contingut del teu curs <strong>&quot;Piano Cl&aacute;sico en Casa&quot;</strong> de <strong>Raquel Garcia</strong> (Skool, 168 membres). Fes qualsevol pregunta &mdash; buscar&agrave; primer a la teva base de coneixement del curs i complementar&agrave; amb consell expert.
+            <strong>Piano Teacher</strong> combina coneixement d'IA sobre t&egrave;cnica, teoria i pedagogia del piano amb el contingut del teu curs <strong>&quot;Piano Cl&aacute;sico en Casa&quot;</strong> de <strong>Raquel Garcia</strong> (Skool, 168 membres) i les <strong>transcripcions de 51 v&iacute;deos</strong> del seu canal de YouTube (112.994 paraules). Fes qualsevol pregunta &mdash; buscar&agrave; a tota la base de coneixement.
         </div>
         <div class="query-box">
             <textarea id="queryInput" placeholder="Pregunta'm sobre t&egrave;cnica, teoria, exercicis, repertori..." rows="2"></textarea>
@@ -691,6 +848,56 @@
             </div>
         </details>
     </div>
+
+    <!-- YOUTUBE TAB -->
+    <div id="tab-youtube" class="tab-panel">
+        <div class="yt-header">
+            <span class="yt-title">&#9654; Raquel Garc&iacute;a Piano</span>
+            <span class="yt-badge">YouTube</span>
+            <a class="btn-small" href="https://www.youtube.com/@Raquelgarciapiano" target="_blank" style="text-decoration:none;border-color:rgba(255,68,68,0.2);color:#ff6666">Canal YouTube &rarr;</a>
+        </div>
+
+        <div class="advisor-intro" style="border-color:rgba(255,68,68,0.15);background:rgba(255,68,68,0.05);margin-bottom:16px">
+            <strong style="color:#ff6666">51 v&iacute;deos transcrits</strong> del canal de Raquel Garc&iacute;a Piano &mdash; <strong style="color:#ff6666">112.994 paraules</strong> de contingut sobre t&egrave;cnica, estudi, repertori, pianos i m&eacute;s.
+            Cada v&iacute;deo inclou la transcripci&oacute; completa cercable. L'<strong>Assessor IA</strong> tamb&eacute; busca dins d'aquestes transcripcions.
+        </div>
+
+        <div class="course-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="ytStatVideos">51</div>
+                <div class="stat-label">V&iacute;deos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="ytStatWords">112.994</div>
+                <div class="stat-label">Paraules</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="ytStatCategories">9</div>
+                <div class="stat-label">Categories</div>
+            </div>
+        </div>
+
+        <div class="yt-search">
+            <div class="yt-search-wrapper">
+                <input type="text" id="ytSearch" placeholder="Cercar dins les transcripcions..." oninput="app.filterYT(this.value)">
+            </div>
+        </div>
+
+        <div id="ytIndex">
+            <div class="yt-loading">
+                <div class="spinner"></div>
+                <p>Carregant &iacute;ndex de v&iacute;deos...</p>
+            </div>
+        </div>
+
+        <div id="ytTranscriptDetail" class="lesson-detail">
+            <div class="lesson-detail-header">
+                <span class="lesson-detail-title" id="ytDetailTitle"></span>
+                <button class="lesson-detail-close" onclick="app.closeYTDetail()">&times; Tancar</button>
+            </div>
+            <div class="lesson-detail-body" id="ytDetailBody"></div>
+        </div>
+    </div>
 </div>
 
 <!-- Add/Edit Topic Modal -->
@@ -737,7 +944,7 @@ Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l
 
 <footer>
     Piano Teacher &middot; XRoig 2026
-    <p class="footer-version">v1.4</p>
+    <p class="footer-version">v1.5</p>
 </footer>
 
 <script>
@@ -747,6 +954,9 @@ const app = (() => {
     const STORAGE_CHAT = 'piano-teacher-chat';
     const STORAGE_COMPLETED = 'piano-teacher-completed';
     const COURSE_VERSION = 2;
+
+    let ytIndex = null;
+    let ytKnowledgeBase = null;
 
     function checkCourseVersion() {
         const stored = localStorage.getItem('piano-teacher-course-version');
@@ -805,36 +1015,12 @@ const app = (() => {
 
     function getDefaultLessons() {
         return [
-            {
-                id: 'l_s0_1', topicId: 's0', title: 'Introducció a la plataforma Skool',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 0. Empieza aquí\n\nCaptura el contingut de cada vídeo d\'introducció amb el bookmarklet.',
-                tags: ['introducció', 'plataforma', 'skool']
-            },
-            {
-                id: 'l_s1_1', topicId: 's1', title: 'Postura bàsica del cos',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Posició del cos al seient\n- Alçada i distància al teclat\n- Posició de braços i colzes\n- Relaxació muscular',
-                tags: ['postura', 'cos', 'fonaments']
-            },
-            {
-                id: 'l_s1_2', topicId: 's1', title: 'Postura de mans i dits',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Curvatura dels dits\n- Posició del canell\n- Errors comuns de principiants\n- Mals hàbits a corregir',
-                tags: ['postura', 'mans', 'dits', 'hàbits']
-            },
-            {
-                id: 'l_s2_1', topicId: 's2', title: 'Com estudiar de manera òptima',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 2. Cómo estudiar\n\nCaptura cada vídeo sobre metodologia d\'estudi.',
-                tags: ['estudi', 'metodologia', 'pràctica']
-            },
-            {
-                id: 'l_s3_1', topicId: 's3', title: 'Exercicis de tècnica',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 3. Técnica\n\nCaptura cada apartat de tècnica específica.',
-                tags: ['tècnica', 'exercicis']
-            },
-            {
-                id: 'l_s6_1', topicId: 's6', title: 'Aspectes tècnics avançats',
-                content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: Lleva tu manera de tocar al siguiente nivel\n\nCaptura els consells per tocar de manera segura, precisa i de qualitat.',
-                tags: ['avançat', 'qualitat', 'precisió']
-            },
+            { id: 'l_s0_1', topicId: 's0', title: 'Introducció a la plataforma Skool', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 0. Empieza aquí\n\nCaptura el contingut de cada vídeo d\'introducció amb el bookmarklet.', tags: ['introducció', 'plataforma', 'skool'] },
+            { id: 'l_s1_1', topicId: 's1', title: 'Postura bàsica del cos', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Posició del cos al seient\n- Alçada i distància al teclat\n- Posició de braços i colzes\n- Relaxació muscular', tags: ['postura', 'cos', 'fonaments'] },
+            { id: 'l_s1_2', topicId: 's1', title: 'Postura de mans i dits', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 1. Postura y hábitos básicos\n\nTemes a capturar:\n- Curvatura dels dits\n- Posició del canell\n- Errors comuns de principiants\n- Mals hàbits a corregir', tags: ['postura', 'mans', 'dits', 'hàbits'] },
+            { id: 'l_s2_1', topicId: 's2', title: 'Com estudiar de manera òptima', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 2. Cómo estudiar\n\nCaptura cada vídeo sobre metodologia d\'estudi.', tags: ['estudi', 'metodologia', 'pràctica'] },
+            { id: 'l_s3_1', topicId: 's3', title: 'Exercicis de tècnica', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: 3. Técnica\n\nCaptura cada apartat de tècnica específica.', tags: ['tècnica', 'exercicis'] },
+            { id: 'l_s6_1', topicId: 's6', title: 'Aspectes tècnics avançats', content: 'FONT: Piano Clásico en Casa (Raquel Garcia) — Skool\nSecció: Lleva tu manera de tocar al siguiente nivel\n\nCaptura els consells per tocar de manera segura, precisa i de qualitat.', tags: ['avançat', 'qualitat', 'precisió'] },
         ];
     }
 
@@ -848,7 +1034,133 @@ const app = (() => {
         });
     });
 
-    // Render course index
+    // ==================== YOUTUBE TAB ====================
+
+    async function loadYTData() {
+        try {
+            const [indexRes, kbRes] = await Promise.all([
+                fetch('transcriptions/index.json'),
+                fetch('transcriptions/knowledge-base.json')
+            ]);
+            if (indexRes.ok) ytIndex = await indexRes.json();
+            if (kbRes.ok) ytKnowledgeBase = await kbRes.json();
+
+            if (ytIndex) {
+                document.getElementById('ytStatVideos').textContent = ytIndex.total_videos;
+                document.getElementById('ytStatWords').textContent = ytIndex.total_words.toLocaleString('ca');
+                document.getElementById('ytStatCategories').textContent = ytIndex.categories.length;
+                renderYT();
+            }
+        } catch (e) {
+            document.getElementById('ytIndex').innerHTML =
+                '<div class="empty-state"><div class="ico">&#9888;</div><p>No s\'han pogut carregar les transcripcions. Comprova que els fitxers estiguin a transcriptions/</p></div>';
+        }
+    }
+
+    function renderYT(filter = '') {
+        if (!ytIndex) return;
+        const container = document.getElementById('ytIndex');
+        const filterLower = filter.toLowerCase();
+        let html = '';
+
+        ytIndex.categories.forEach((cat, ci) => {
+            let videos = cat.videos;
+            if (filterLower) {
+                videos = videos.filter(v => {
+                    if (v.title.toLowerCase().includes(filterLower)) return true;
+                    if (v.summary.toLowerCase().includes(filterLower)) return true;
+                    if (ytKnowledgeBase) {
+                        const kb = ytKnowledgeBase.find(k => k.id === v.id);
+                        if (kb && kb.text.toLowerCase().includes(filterLower)) return true;
+                    }
+                    return false;
+                });
+            }
+            if (filterLower && videos.length === 0) return;
+
+            html += '<div class="topic-group' + (videos.length > 0 ? ' open' : '') + '">';
+            html += '<div class="topic-group-header" onclick="this.parentElement.classList.toggle(\'open\')">';
+            html += '<span class="topic-group-arrow">&#9654;</span>';
+            html += '<span class="topic-group-name">' + escapeHtml(cat.name) + '</span>';
+            html += '<span style="font-size:0.72em;color:rgba(255,255,255,0.35);margin-left:4px">' + escapeHtml(cat.description) + '</span>';
+            html += '<span class="topic-group-count">' + videos.length + ' v&iacute;deos</span>';
+            html += '</div>';
+            html += '<div class="topic-group-content">';
+
+            videos.forEach(v => {
+                const date = v.upload_date ? v.upload_date.replace(/(\d{4})(\d{2})(\d{2})/, '$3/$2/$1') : '';
+                html += '<div class="yt-video-card">';
+                html += '<span class="yt-video-icon">&#9654;&#65039;</span>';
+                html += '<div class="yt-video-info">';
+                html += '<div class="yt-video-title" onclick="app.showYTTranscript(\'' + v.id + '\')">' + escapeHtml(v.title) + '</div>';
+                html += '<div class="yt-video-meta">';
+                html += '<span>&#9200; ' + escapeHtml(v.duration) + '</span>';
+                html += '<span>&#128196; ' + v.words.toLocaleString('ca') + ' paraules</span>';
+                if (date) html += '<span>&#128197; ' + date + '</span>';
+                html += '</div>';
+
+                if (filterLower && ytKnowledgeBase) {
+                    const kb = ytKnowledgeBase.find(k => k.id === v.id);
+                    if (kb) {
+                        const idx = kb.text.toLowerCase().indexOf(filterLower);
+                        if (idx >= 0) {
+                            const start = Math.max(0, idx - 80);
+                            const end = Math.min(kb.text.length, idx + filterLower.length + 80);
+                            let snippet = (start > 0 ? '...' : '') +
+                                kb.text.substring(start, idx) +
+                                '<mark style="background:#ffaa00;color:#000;padding:0 2px;border-radius:2px">' +
+                                kb.text.substring(idx, idx + filterLower.length) + '</mark>' +
+                                kb.text.substring(idx + filterLower.length, end) +
+                                (end < kb.text.length ? '...' : '');
+                            html += '<div style="margin-top:6px;padding:6px 10px;background:rgba(255,170,0,0.06);border-radius:6px;font-size:0.78em;color:rgba(255,255,255,0.6);line-height:1.5">' + snippet + '</div>';
+                        }
+                    }
+                }
+
+                html += '</div>';
+                html += '<div class="yt-video-actions">';
+                html += '<a class="yt-btn" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank">&#9654; YouTube</a>';
+                html += '<button class="yt-btn" onclick="app.showYTTranscript(\'' + v.id + '\')">&#128196; Transcripci&oacute;</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+
+            if (videos.length === 0) {
+                html += '<p style="font-size:0.8em;color:rgba(255,255,255,0.2);text-align:center;padding:8px">Cap v&iacute;deo en aquesta categoria</p>';
+            }
+
+            html += '</div></div>';
+        });
+
+        if (!html) {
+            html = '<div class="empty-state"><div class="ico">&#127909;</div><p>Cap resultat. Prova amb un altre terme de cerca.</p></div>';
+        }
+
+        container.innerHTML = html;
+    }
+
+    function showYTTranscript(videoId) {
+        if (!ytKnowledgeBase) return;
+        const kb = ytKnowledgeBase.find(k => k.id === videoId);
+        if (!kb) return;
+        document.getElementById('ytDetailTitle').innerHTML = escapeHtml(kb.title) +
+            ' <a href="https://www.youtube.com/watch?v=' + videoId + '" target="_blank" style="font-size:0.7em;color:#ff6666;text-decoration:none;margin-left:8px">&#9654; YouTube</a>';
+        document.getElementById('ytDetailBody').textContent = kb.text;
+        const detail = document.getElementById('ytTranscriptDetail');
+        detail.classList.add('active');
+        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeYTDetail() {
+        document.getElementById('ytTranscriptDetail').classList.remove('active');
+    }
+
+    function filterYT(val) {
+        renderYT(val);
+    }
+
+    // ==================== COURSE TAB ====================
+
     function renderCourse(filter = '') {
         const topics = loadTopics().sort((a, b) => a.order - b.order);
         const lessons = loadLessons();
@@ -875,45 +1187,48 @@ const app = (() => {
             const completedCount = topicLessons.filter(l => completed[l.id]).length;
             totalCompleted += completedCount;
 
-            html += `<div class="topic-group${topicLessons.length > 0 ? ' open' : ''}">
-                <div class="topic-group-header" onclick="this.parentElement.classList.toggle('open')">
-                    <span class="topic-group-arrow">▶</span>
-                    <span class="topic-group-name">${topic.name}</span>
-                    <span class="topic-group-count">${completedCount}/${topicLessons.length}</span>
-                    ${topic.progress !== undefined ? `<span style="display:inline-flex;align-items:center;gap:4px;margin-left:4px"><span style="width:50px;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:${topic.progress}%;background:${topic.progress===100?'#4caf50':topic.progress>0?'#ffaa00':'rgba(255,255,255,0.15)'};border-radius:3px"></span></span><span style="font-size:0.65em;color:rgba(255,255,255,0.35)">${topic.progress}%</span></span>` : ''}
-                    <button class="lesson-action-btn" onclick="event.stopPropagation();app.editTopic('${topic.id}')" title="Editar tema">✎</button>
-                    <button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteTopic('${topic.id}')" title="Esborrar tema">✖</button>
-                </div>
-                <div class="topic-group-content">`;
+            html += '<div class="topic-group' + (topicLessons.length > 0 ? ' open' : '') + '">';
+            html += '<div class="topic-group-header" onclick="this.parentElement.classList.toggle(\'open\')">';
+            html += '<span class="topic-group-arrow">&#9654;</span>';
+            html += '<span class="topic-group-name">' + topic.name + '</span>';
+            html += '<span class="topic-group-count">' + completedCount + '/' + topicLessons.length + '</span>';
+            if (topic.progress !== undefined) {
+                html += '<span style="display:inline-flex;align-items:center;gap:4px;margin-left:4px">' +
+                    '<span style="width:50px;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;display:inline-block">' +
+                    '<span style="display:block;height:100%;width:' + topic.progress + '%;background:' +
+                    (topic.progress===100?'#4caf50':topic.progress>0?'#ffaa00':'rgba(255,255,255,0.15)') +
+                    ';border-radius:3px"></span></span>' +
+                    '<span style="font-size:0.65em;color:rgba(255,255,255,0.35)">' + topic.progress + '%</span></span>';
+            }
+            html += '<button class="lesson-action-btn" onclick="event.stopPropagation();app.editTopic(\'' + topic.id + '\')" title="Editar tema">&#9998;</button>';
+            html += '<button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteTopic(\'' + topic.id + '\')" title="Esborrar tema">&#10006;</button>';
+            html += '</div>';
+            html += '<div class="topic-group-content">';
 
             if (topic.desc) {
-                html += `<p style="font-size:0.8em;color:rgba(255,255,255,0.35);margin-bottom:10px;font-style:italic">${topic.desc}</p>`;
+                html += '<p style="font-size:0.8em;color:rgba(255,255,255,0.35);margin-bottom:10px;font-style:italic">' + topic.desc + '</p>';
             }
 
             topicLessons.forEach(lesson => {
                 const isCompleted = completed[lesson.id] ? ' completed' : '';
-                html += `<div class="lesson-item${isCompleted}" data-id="${lesson.id}">
-                    <div class="lesson-check" onclick="event.stopPropagation();app.toggleComplete('${lesson.id}')"></div>
-                    <span class="lesson-title" onclick="app.showDetail('${lesson.id}')">${lesson.title}</span>
-                    <div class="lesson-actions">
-                        <button class="lesson-action-btn" onclick="event.stopPropagation();app.editLesson('${lesson.id}')">✎</button>
-                        <button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteLesson('${lesson.id}')">✖</button>
-                    </div>
-                </div>`;
+                html += '<div class="lesson-item' + isCompleted + '" data-id="' + lesson.id + '">';
+                html += '<div class="lesson-check" onclick="event.stopPropagation();app.toggleComplete(\'' + lesson.id + '\')"></div>';
+                html += '<span class="lesson-title" onclick="app.showDetail(\'' + lesson.id + '\')">' + lesson.title + '</span>';
+                html += '<div class="lesson-actions">';
+                html += '<button class="lesson-action-btn" onclick="event.stopPropagation();app.editLesson(\'' + lesson.id + '\')">&#9998;</button>';
+                html += '<button class="lesson-action-btn del" onclick="event.stopPropagation();app.deleteLesson(\'' + lesson.id + '\')">&#10006;</button>';
+                html += '</div></div>';
             });
 
             if (topicLessons.length === 0) {
-                html += `<p style="font-size:0.8em;color:rgba(255,255,255,0.2);text-align:center;padding:8px">Cap lliçó encara</p>`;
+                html += '<p style="font-size:0.8em;color:rgba(255,255,255,0.2);text-align:center;padding:8px">Cap lli&ccedil;&oacute; encara</p>';
             }
 
-            html += `</div></div>`;
+            html += '</div></div>';
         });
 
         if (!html) {
-            html = `<div class="empty-state">
-                <div class="ico">🎹</div>
-                <p>Cap resultat trobat. Afegeix temes i lliçons per construir la teva base de coneixement.</p>
-            </div>`;
+            html = '<div class="empty-state"><div class="ico">&#127929;</div><p>Cap resultat trobat. Afegeix temes i lli&ccedil;ons per construir la teva base de coneixement.</p></div>';
         }
 
         container.innerHTML = html;
@@ -1028,7 +1343,7 @@ const app = (() => {
         const topics = loadTopics().sort((a, b) => a.order - b.order);
         const sel = document.getElementById('lessonTopic');
         sel.innerHTML = topics.map(t =>
-            `<option value="${t.id}" ${t.id === selectedId ? 'selected' : ''}>${t.name}</option>`
+            '<option value="' + t.id + '"' + (t.id === selectedId ? ' selected' : '') + '>' + t.name + '</option>'
         ).join('');
     }
 
@@ -1067,7 +1382,8 @@ const app = (() => {
         renderCourse(val);
     }
 
-    // Advisor / Chat
+    // ==================== ASSESSOR / CHAT ====================
+
     function searchKnowledgeBase(query) {
         const lessons = loadLessons();
         const queryLower = query.toLowerCase();
@@ -1089,18 +1405,71 @@ const app = (() => {
         return results;
     }
 
-    function generateResponse(query, kbResults) {
-        const topics = loadTopics();
+    function searchYTTranscriptions(query) {
+        if (!ytKnowledgeBase) return [];
+        const queryLower = query.toLowerCase();
+        const words = queryLower.split(/\s+/).filter(w => w.length > 2);
+        if (words.length === 0) return [];
 
+        const results = ytKnowledgeBase.map(entry => {
+            const textLower = entry.text.toLowerCase();
+            const titleLower = entry.title.toLowerCase();
+            let score = 0;
+            let bestSnippet = '';
+            let bestSnippetPos = -1;
+
+            words.forEach(word => {
+                if (titleLower.includes(word)) score += 5;
+                let pos = 0;
+                let count = 0;
+                while ((pos = textLower.indexOf(word, pos)) !== -1 && count < 50) {
+                    score += 1;
+                    if (bestSnippetPos === -1 || pos < bestSnippetPos) bestSnippetPos = pos;
+                    pos += word.length;
+                    count++;
+                }
+            });
+
+            if (score > 0 && bestSnippetPos >= 0) {
+                const start = Math.max(0, bestSnippetPos - 100);
+                const end = Math.min(entry.text.length, bestSnippetPos + 300);
+                bestSnippet = (start > 0 ? '...' : '') +
+                    entry.text.substring(start, end).replace(/\n/g, ' ') +
+                    (end < entry.text.length ? '...' : '');
+            }
+
+            return { entry, score, snippet: bestSnippet };
+        }).filter(r => r.score > 0).sort((a, b) => b.score - a.score).slice(0, 5);
+
+        return results;
+    }
+
+    function generateResponse(query, kbResults, ytResults) {
+        const topics = loadTopics();
         let response = '';
 
+        if (ytResults && ytResults.length > 0) {
+            response += '<span class="source-tag yt">YouTube: Raquel Garcia</span>\n\n';
+            response += 'He trobat contingut rellevant a les transcripcions de YouTube:\n\n';
+            ytResults.forEach((r, i) => {
+                response += '<strong>' + (i + 1) + '. ' + escapeHtml(r.entry.title) + '</strong>\n';
+                response += '<a href="https://www.youtube.com/watch?v=' + r.entry.id +
+                    '" target="_blank" style="color:#ff6666;font-size:0.85em">&#9654; Veure a YouTube</a>\n';
+                if (r.snippet) {
+                    response += '<em style="color:rgba(255,255,255,0.5)">"' + escapeHtml(r.snippet) + '"</em>\n';
+                }
+                response += '\n';
+            });
+            response += '---\n\n';
+        }
+
         if (kbResults.length > 0) {
-            response += '<span class="source-tag">Base de Coneixement</span>\n\n';
+            response += '<span class="source-tag">Base de Coneixement (Curs)</span>\n\n';
             response += 'He trobat contingut rellevant als teus apunts del curs:\n\n';
             kbResults.forEach((r, i) => {
                 const topic = topics.find(t => t.id === r.lesson.topicId);
                 const topicName = topic ? topic.name : 'Sense tema';
-                response += `<strong>${i + 1}. ${r.lesson.title}</strong> <em>(${topicName})</em>\n`;
+                response += '<strong>' + (i + 1) + '. ' + r.lesson.title + '</strong> <em>(' + topicName + ')</em>\n';
                 const preview = r.lesson.content.substring(0, 300);
                 response += preview + (r.lesson.content.length > 300 ? '...' : '') + '\n\n';
             });
@@ -1238,7 +1607,8 @@ const app = (() => {
         chat.push({ role: 'user', text: query, time: new Date().toISOString() });
 
         const kbResults = searchKnowledgeBase(query);
-        const response = generateResponse(query, kbResults);
+        const ytResults = searchYTTranscriptions(query);
+        const response = generateResponse(query, kbResults, ytResults);
         chat.push({ role: 'assistant', text: response, time: new Date().toISOString() });
 
         saveChat(chat);
@@ -1250,7 +1620,7 @@ const app = (() => {
         const chat = loadChat();
         const container = document.getElementById('chatHistory');
         container.innerHTML = chat.map(msg =>
-            `<div class="chat-msg ${msg.role}">${msg.role === 'user' ? escapeHtml(msg.text) : msg.text}</div>`
+            '<div class="chat-msg ' + msg.role + '">' + (msg.role === 'user' ? escapeHtml(msg.text) : msg.text) + '</div>'
         ).join('');
         container.scrollTop = container.scrollHeight;
     }
@@ -1302,75 +1672,7 @@ const app = (() => {
     let pendingCapture = null;
 
     function buildBookmarklet() {
-        const code = `(function(){
-            var loc=location.href;
-            if(!loc.includes('skool.com')){alert('Obre una pàgina de Skool primer!');return;}
-            var result={url:loc,title:'',content:'',type:'',captured:new Date().toISOString()};
-            /* Classroom index - capture all modules and lessons */
-            if(loc.includes('/classroom')){
-                result.type='classroom-index';
-                var modules=[];
-                document.querySelectorAll('[class*="Module"],[class*="module"],[data-testid*="module"]').forEach(function(m){
-                    var title=m.querySelector('h2,h3,[class*="title"],[class*="Title"]');
-                    var lessons=[];
-                    m.querySelectorAll('[class*="lesson"],[class*="Lesson"],[class*="curriculum-item"]').forEach(function(l){
-                        var t=l.querySelector('span,p,a,div');
-                        if(t)lessons.push(t.textContent.trim());
-                    });
-                    if(title)modules.push({name:title.textContent.trim(),lessons:lessons});
-                });
-                if(modules.length===0){
-                    var headings=document.querySelectorAll('h2,h3');
-                    headings.forEach(function(h){
-                        var items=[];
-                        var next=h.nextElementSibling;
-                        while(next&&!['H2','H3'].includes(next.tagName)){
-                            var links=next.querySelectorAll('a,li,p');
-                            links.forEach(function(l){if(l.textContent.trim())items.push(l.textContent.trim());});
-                            next=next.nextElementSibling;
-                        }
-                        modules.push({name:h.textContent.trim(),lessons:items});
-                    });
-                }
-                if(modules.length===0){
-                    var all=document.querySelectorAll('a[href*="/classroom/"]');
-                    all.forEach(function(a){modules.push({name:a.textContent.trim(),lessons:[]});});
-                }
-                result.title='Index del Classroom';
-                result.content=JSON.stringify(modules,null,2);
-                if(modules.length===0){
-                    var body=document.querySelector('main,[role=main],.content,#__next');
-                    result.content=(body||document.body).innerText.substring(0,15000);
-                    result.type='classroom-raw';
-                }
-            }
-            /* Individual lesson/post page */
-            else{
-                result.type='lesson';
-                var h1=document.querySelector('h1,[class*="title"],[class*="Title"]');
-                result.title=h1?h1.textContent.trim():'Sense títol';
-                var contentEl=document.querySelector('[class*="content"],[class*="Content"],[class*="post-body"],[class*="PostBody"],article,main,[role=main]');
-                if(!contentEl)contentEl=document.querySelector('#__next');
-                if(contentEl){
-                    result.content=contentEl.innerText.substring(0,20000);
-                }else{
-                    result.content=document.body.innerText.substring(0,15000);
-                }
-                var videos=document.querySelectorAll('video,iframe[src*="youtube"],iframe[src*="vimeo"],iframe[src*="loom"]');
-                if(videos.length>0){
-                    result.videos=[];
-                    videos.forEach(function(v){
-                        result.videos.push(v.src||v.querySelector('source')&&v.querySelector('source').src||'video detectat');
-                    });
-                }
-            }
-            var json=JSON.stringify(result);
-            navigator.clipboard.writeText(json).then(function(){
-                alert('Captura copiada! ('+(result.type)+')\\n\\nTorna a Piano Teacher i clica "Enganxar captura".');
-            }).catch(function(){
-                prompt('Copia aquest text manualment:',json);
-            });
-        })();`;
+        const code = "(function(){var loc=location.href;if(!loc.includes('skool.com')){alert('Obre una p\\u00e0gina de Skool primer!');return;}var result={url:loc,title:'',content:'',type:'',captured:new Date().toISOString()};if(loc.includes('/classroom')){result.type='classroom-index';var modules=[];document.querySelectorAll('[class*=\"Module\"],[class*=\"module\"],[data-testid*=\"module\"]').forEach(function(m){var title=m.querySelector('h2,h3,[class*=\"title\"],[class*=\"Title\"]');var lessons=[];m.querySelectorAll('[class*=\"lesson\"],[class*=\"Lesson\"],[class*=\"curriculum-item\"]').forEach(function(l){var t=l.querySelector('span,p,a,div');if(t)lessons.push(t.textContent.trim());});if(title)modules.push({name:title.textContent.trim(),lessons:lessons});});if(modules.length===0){var headings=document.querySelectorAll('h2,h3');headings.forEach(function(h){var items=[];var next=h.nextElementSibling;while(next&&!['H2','H3'].includes(next.tagName)){var links=next.querySelectorAll('a,li,p');links.forEach(function(l){if(l.textContent.trim())items.push(l.textContent.trim());});next=next.nextElementSibling;}modules.push({name:h.textContent.trim(),lessons:items});});}if(modules.length===0){var all=document.querySelectorAll('a[href*=\"/classroom/\"]');all.forEach(function(a){modules.push({name:a.textContent.trim(),lessons:[]});});}result.title='Index del Classroom';result.content=JSON.stringify(modules,null,2);if(modules.length===0){var body=document.querySelector('main,[role=main],.content,#__next');result.content=(body||document.body).innerText.substring(0,15000);result.type='classroom-raw';}}else{result.type='lesson';var h1=document.querySelector('h1,[class*=\"title\"],[class*=\"Title\"]');result.title=h1?h1.textContent.trim():'Sense t\\u00edtol';var contentEl=document.querySelector('[class*=\"content\"],[class*=\"Content\"],[class*=\"post-body\"],[class*=\"PostBody\"],article,main,[role=main]');if(!contentEl)contentEl=document.querySelector('#__next');if(contentEl){result.content=contentEl.innerText.substring(0,20000);}else{result.content=document.body.innerText.substring(0,15000);}var videos=document.querySelectorAll('video,iframe[src*=\"youtube\"],iframe[src*=\"vimeo\"],iframe[src*=\"loom\"]');if(videos.length>0){result.videos=[];videos.forEach(function(v){result.videos.push(v.src||v.querySelector('source')&&v.querySelector('source').src||'video detectat');});}}var json=JSON.stringify(result);navigator.clipboard.writeText(json).then(function(){alert('Captura copiada! ('+result.type+')\\n\\nTorna a Piano Teacher i clica \"Enganxar captura\".');}).catch(function(){prompt('Copia aquest text manualment:',json);});})();";
         return 'javascript:' + encodeURIComponent(code);
     }
 
@@ -1508,12 +1810,14 @@ const app = (() => {
     renderCourse();
     renderChat();
     initBookmarklet();
+    loadYTData();
 
     return {
-        sendQuery, filterCourse, showAddTopic, showAddLesson,
+        sendQuery, filterCourse, filterYT, showAddTopic, showAddLesson,
         saveTopic, saveLesson, editTopic, editLesson,
         deleteTopic, deleteLesson, toggleComplete,
         showDetail, closeDetail, closeModal,
+        showYTTranscript, closeYTDetail,
         exportData, importData,
         pasteCapture, captureFromClipboard, importCapture
     };

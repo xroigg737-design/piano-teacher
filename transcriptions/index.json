@@ -1,0 +1,468 @@
+{
+  "categories": [
+    {
+      "name": "Técnica y Estudio",
+      "description": "Mètodes d'estudi, tècnica pianística i superació d'obstacles",
+      "videos": [
+        {
+          "id": "96DCIP3vjOw",
+          "title": "El método de estudio para personas ocupadas",
+          "duration": "13:02",
+          "upload_date": "20260712",
+          "words": 1840,
+          "summary": "Os explico cuál es el estudio mínimo efectivo para personas cansadas o que tienen poco tiempo. A todos nos ha pasado querer aprender piezas con poco tiempo o incluso tener que preparar audiciones o re..."
+        },
+        {
+          "id": "Fzowd8K4Th0",
+          "title": "Cómo enfrentarse a pasajes difíciles",
+          "duration": "19:45",
+          "upload_date": "20250607",
+          "words": 3182,
+          "summary": "¿Te preguntas cómo estudiar y cómo dominar pasajes difíciles? Hace unos días he recibido una solicitud de hacer un vídeo donde explique cómo me enfrento a pasajes difíciles. Así que, aunque mi conteni..."
+        },
+        {
+          "id": "HxTNRfJj0bM",
+          "title": "Si quieres tocar rápido... ¡piensa rápido!",
+          "duration": "18:33",
+          "upload_date": "20260116",
+          "words": 3156,
+          "summary": "Muchos estudiantes de piano tienen problemas de velocidad y más o menos saben encontrar las causas. Los problemas de tensión son muy evidentes cuando intentamos tocar algo muy rápido, pero las manos s..."
+        },
+        {
+          "id": "5Cqz5qOW95A",
+          "title": "El error de estudiar piezas con prisa (y por qué frena tu progreso)",
+          "duration": "12:30",
+          "upload_date": "20251005",
+          "words": 2225,
+          "summary": "Hoy os voy a hablar de las desventajas de tener demasiada prisa por acabar las piezas. Porque cuando vamos con mucha prisa nos saltamos muchos procesos y esto tiene varios contras y os lo voy a explic..."
+        },
+        {
+          "id": "kZpURHiUKSs",
+          "title": "5 maneras de relajar (¡incluso principiantes!)",
+          "duration": "9:23",
+          "upload_date": "20260708",
+          "words": 1495,
+          "summary": "Cinco maneras de evitar la tensión en el piano para principiantes. La primera de todas es muy común. Cuando tengo nuevos alumnos, generalmente lo que veo es que quieren hacer mucha fuerza para bajar l..."
+        },
+        {
+          "id": "OiveogkUIqs",
+          "title": "Cómo pulir piezas encalladas",
+          "duration": "8:19",
+          "upload_date": "20260516",
+          "words": 1320,
+          "summary": "Aquí va una pregunta que me hacen muchos alumnos. ¿Qué puedo hacer con una pieza que hace tiempo que toco, que está ya viciada, tiene bastantes fallos, pero quiero acabarla de estudiar? Y este vídeo e..."
+        },
+        {
+          "id": "MGDdwKWfdZ0",
+          "title": "Estudiar con los ojos cerrados: más útil de lo que crees",
+          "duration": "9:38",
+          "upload_date": "20250730",
+          "words": 1648,
+          "summary": "¿Quieres una herramienta que te ayude muchísimo a mejorar la precisión en el piano y que además puedas aplicar a situaciones específicas? Hoy te voy a hablar de estudiar con los ojos cerrados. Aunque..."
+        },
+        {
+          "id": "KN0kObViQBA",
+          "title": "Claridad mental para estudiar piano de forma óptima",
+          "duration": "22:19",
+          "upload_date": "20260127",
+          "words": 3673,
+          "summary": "En esta serie de vídeos estoy hablando de que el piano se toca con la mente. En el vídeo anterior lo enfoqué en la velocidad. Cómo tenemos que tener las cosas muy claras para poder tocar de optisa. Y..."
+        },
+        {
+          "id": "NwfLPXYlGDs",
+          "title": "Define objetivos que impulsen tu estudio de piano",
+          "duration": "5:01",
+          "upload_date": "20251123",
+          "words": 977,
+          "summary": "Vamos a hablar de cómo ponerse objetivos. Más adelante en este curso voy a hablar de cómo escoger repertorio y voy a hablar de distintas dificultades de piezas, etcétera. Pero de entrada quiero que te..."
+        },
+        {
+          "id": "gwzojx7ZeaA",
+          "title": "Cómo regresar al piano y superar tus límites",
+          "duration": "13:57",
+          "upload_date": "20250828",
+          "words": 2936,
+          "summary": "¿Llevas mucho tiempo sin tocar el piano y no sabes cómo retomar su estudio? No te preocupes, en este vídeo te voy a explicar varios aspectos a tener en cuenta para poder volver a tocar este instrument..."
+        },
+        {
+          "id": "kTCc3UHOxVY",
+          "title": "¿Sin acceso a un piano? Te cuento qué hacer para avanzar.",
+          "duration": "7:56",
+          "upload_date": "20260227",
+          "words": 1611,
+          "summary": "Aquí estoy con una sala entera con un piano de cola para mí y no lo voy a tocar. Hoy os voy a explicar qué podéis hacer cuando no tenéis un piano disponible. Este vídeo me lo pidió un alumno de la esc..."
+        },
+        {
+          "id": "qQj2c-DvVkM",
+          "title": "Muchos se rinden en este punto… ¡pero tú puedes seguir!",
+          "duration": "11:51",
+          "upload_date": "20250703",
+          "words": 2034,
+          "summary": "¿Por qué hay personas realmente enamoradas del piano que dejan de tocarlo? ¿Y por qué suele coincidir que están más o menos en el mismo nivel? Este es un tema del que he estado hablando con mi primera..."
+        },
+        {
+          "id": "x2hXuC3-Gmc",
+          "title": "Avanza con el piano sin límites",
+          "duration": "7:00",
+          "upload_date": "20250514",
+          "words": 1392,
+          "summary": "El sistema tradicional educativo nos hace avanzar muy despacio y podemos avanzar mucho más rápido con la información correcta. Incluso en mi caso, en el que estuve haciendo los cursos de piano de dos..."
+        },
+        {
+          "id": "C-xsncYhZ-s",
+          "title": "Está bien ser exigente, pero... ¡de la manera correcta!",
+          "duration": "3:08",
+          "upload_date": "20250517",
+          "words": 472,
+          "summary": "En esta clase quiero hablar sobre la manera correcta de exigirse, porque creo que muchas veces somos muy exigentes con nosotros mismos de una manera incorrecta y quiero decir que nos exigimos estudiar..."
+        },
+        {
+          "id": "CVWfFW_W2js",
+          "title": "Menos exigencia, ¡y más perfeccionismo!",
+          "duration": "11:34",
+          "upload_date": "20260320",
+          "words": 2117,
+          "summary": "Muchas veces, cuando nos aproximamos al piano y queremos aprender bien, cometemos dos errores. Ser poco perfeccionistas y ser demasiado exigentes. Les voy a explicar cómo funciona esto. Cuando nos ace..."
+        }
+      ]
+    },
+    {
+      "name": "Interpretación y Expresividad",
+      "description": "Fraseig, expressivitat, pedal, sonar professional",
+      "videos": [
+        {
+          "id": "KxC2QG1sQIE",
+          "title": "Cómo hacer que un nocturno... suene a nocturno",
+          "duration": "16:54",
+          "upload_date": "20260523",
+          "words": 1980,
+          "summary": "¿Cómo hacer que un nocturno suene a nocturno? Los nocturnos de Chopin son de mis piezas favoritas en todo el mundo y de hecho uno de mis proyectos de vida es tocarlos todos y grabarlos todos. Así que..."
+        },
+        {
+          "id": "U4e-ARFNuvQ",
+          "title": "Cómo cantar a través del piano",
+          "duration": "11:28",
+          "upload_date": "20250619",
+          "words": 2000,
+          "summary": "En este vídeo os voy a hablar sobre cómo cantar a través del piano y cuáles son las cosas que tenemos que desbloquear para llegar a hacerlo. Y es el primero de una serie de dos vídeos que voy a hacer..."
+        },
+        {
+          "id": "BR-6P55S2J8",
+          "title": "Por qué no usas bien el pedal",
+          "duration": "7:52",
+          "upload_date": "20260414",
+          "words": 1133,
+          "summary": "Este es un vídeo que se ha hecho esperar bastante, aunque hace tiempo que veo que es muy necesario. Y se trata de cómo usar el pedal, porque hay algo que veo muy a menudo con nuevos estudiantes, que e..."
+        },
+        {
+          "id": "d2AkIBezybc",
+          "title": "Suena como un pianista profesional",
+          "duration": "9:06",
+          "upload_date": "20250623",
+          "words": 1439,
+          "summary": "¿Queréis saber cómo sonar como un pianista profesional? Cuando llevaba poco tiempo estudiando, tal vez llevaba dos años y medio o tres, había hecho ya mi examen con el nocturno en dos o es tenido meno..."
+        },
+        {
+          "id": "5lzt-twTvM4",
+          "title": "Tocar con la mente: más allá de las notas.",
+          "duration": "13:27",
+          "upload_date": "20260214",
+          "words": 2191,
+          "summary": "Esta es la tercera y última parte de unos vídeos que he estado haciendo en los que he estado hablando de que el piano se toca con la mente. Esto es una frase que os explique, que dijo Glenn Gould y me..."
+        },
+        {
+          "id": "BGbps1iTpOg",
+          "title": "¿Qué significa realmente subir de nivel en el piano?",
+          "duration": "8:50",
+          "upload_date": "20260814",
+          "words": 1448,
+          "summary": "¿Qué significa realmente subir de nivel en el piano? Muchas veces creemos que subimos de nivel cuando tenemos más nivel técnico, pero esa solo es una parte. Cuando hablo con mis alumnos este tema lo e..."
+        },
+        {
+          "id": "Jgn1w5x8s80",
+          "title": "1 año enseñando online. ¿Por qué estudiantes autodidactas?",
+          "duration": "45:45",
+          "upload_date": "20260301",
+          "words": 8326,
+          "summary": "Música Música Hola, José Antonio. Hola, Raquel. ¿Qué tal? Has de querer interrumpir. No hay problema. Hoy estoy aquí con mi mamá. ¿Qué tal? ¿Qué tal? ¿Qué tal? ¿Qué tal? ¿Qué tal? ¿Qué tal? ¿Qué tal?..."
+        }
+      ]
+    },
+    {
+      "name": "Memoria y Lectura",
+      "description": "Memorització, lectura de partitures i hàbits visuals",
+      "videos": [
+        {
+          "id": "0PG7ENqutg4",
+          "title": "5 beneficios de tocar de memoria",
+          "duration": "7:00",
+          "upload_date": "20250815",
+          "words": 1249,
+          "summary": "Hoy os explico 5 beneficios de memorizar las piezas que tocáis. No hace mucho subí un vídeo titulado Más allá de la memoria muscular, hablando de cómo dejar de usar esta memoria, que a corto y medio p..."
+        },
+        {
+          "id": "9s7-QnjYHww",
+          "title": "Más allá de la memoria muscular",
+          "duration": "8:08",
+          "upload_date": "20250531",
+          "words": 1541,
+          "summary": "¿Quieres dejar de tocar solamente con memoria muscular y tener más referencias y más seguridad? Te voy a explicar algunas de las otras referencias que puedes tener con varios pasos y tal y como promet..."
+        },
+        {
+          "id": "cEb3VIFmQ0g",
+          "title": "Aprendo una pieza en directo: el proceso de construir una memoria fiable",
+          "duration": "33:31",
+          "upload_date": "20251206",
+          "words": 4470,
+          "summary": "Muchos os preguntáis cómo funciona exactamente el proceso de memorizar, y aunque he estado hablando bastante últimamente sobre esto, qué mejor que mostraros ejemplos prácticos en directo. Hoy os voy a..."
+        },
+        {
+          "id": "c42UpKuQc1k",
+          "title": "La posición inicial que impide leer bien",
+          "duration": "11:11",
+          "upload_date": "20260102",
+          "words": 2075,
+          "summary": "¿Y si lo que nos impide aprender a leer bien y lo que nos tienen callados con malos hábitos son precisamente métodos de piano? Esto es algo que me encuentro muy a menudo con alumnos que ya han tocado..."
+        },
+        {
+          "id": "g6i_iu7L5Y8",
+          "title": "Lectura de partituras: errores que frenan y pasos que funcionan",
+          "duration": "12:14",
+          "upload_date": "20250912",
+          "words": 2560,
+          "summary": "Me habéis preguntado qué proceso se sigue para aprender a leer partituras con soltura y os he escuchado. Me parece un tema muy interesante así que os lo voy a explicar en este vídeo. Este es un tema p..."
+        },
+        {
+          "id": "f1zl8m8iZ5U",
+          "title": "Synthesia VS Lectura de partituras",
+          "duration": "8:00",
+          "upload_date": "20260508",
+          "words": 1517,
+          "summary": "Hoy día hay claramente dos maneras de aprender. Una es la que funciona por imitación como el método sintesia que hace estos vídeos con las notas que van cayendo encima de las teclas de colores y queda..."
+        },
+        {
+          "id": "salKQfDdijk",
+          "title": "Mirar las teclas… ¿más de lo necesario o lo justo?",
+          "duration": "9:47",
+          "upload_date": "20260222",
+          "words": 1764,
+          "summary": "Me habéis pedido un vídeo en el que os explique cómo hacer para mirar menos las teclas, entonces os voy a explicar por qué al principio hay que mirarlas menos pero luego hay que mirarlas más. Todo tie..."
+        }
+      ]
+    },
+    {
+      "name": "Repertorio: Bach",
+      "description": "Estudiar i interpretar obres de J.S. Bach",
+      "videos": [
+        {
+          "id": "rUTRLpR0l3o",
+          "title": "3 herramientas para estudiar obras de J.S. Bach",
+          "duration": "4:32",
+          "upload_date": "20250725",
+          "words": 708,
+          "summary": "¿Te parece muy difícil estudiar Bach y no sabes cómo enfrentarte a sus piezas? Te voy a dar tres herramientas para estudiarlo mejor. La primera de ellas es empezar a cambiar la mentalidad de piezas es..."
+        },
+        {
+          "id": "rCC4dAMIMI4",
+          "title": "Si empiezas con Bach, ten esto en cuenta",
+          "duration": "19:07",
+          "upload_date": "20260807",
+          "words": 3071,
+          "summary": "¿Quieres saber cómo tocar mejor a Bach en un piano moderno? ¿Y te gustaría conocer algunas pautas que te ayudarían a tocarlo de una manera más correcta, más adecuada a su época? Hoy voy a hablar de es..."
+        }
+      ]
+    },
+    {
+      "name": "Repertorio: Tchaikovsky",
+      "description": "Peces i estudis de Txaikovski",
+      "videos": [
+        {
+          "id": "ufQcb7U8eHM",
+          "title": "Antes de Chopin... prueba estas piezas de Tchaikovksy.",
+          "duration": "7:37",
+          "upload_date": "20260501",
+          "words": 1114,
+          "summary": "¿Sabías que Tchaikovsky te puede ayudar a tocar Chopin? Algo que me sucede a menudo con nuevos alumnos es que quieren empezar a tocar piezas de Chopin y generalmente se sorprenden al verlas más difíci..."
+        },
+        {
+          "id": "1jMjum-8qm0",
+          "title": "Aprende \"la muñeca enferma\" de Tchaikovsky",
+          "duration": "15:52",
+          "upload_date": "20250905",
+          "words": 2060,
+          "summary": "Hoy en día tenemos muchos métodos para aprender piano. De todo tipo, en todos los idiomas, con un montón de dibujos para niños sin dibujos, los grandes pianistas escriben los suyos propios como Lang L..."
+        },
+        {
+          "id": "wfkcPnbCL38",
+          "title": "Aprende a estudiar un vals de Tchaikovsky",
+          "duration": "16:47",
+          "upload_date": "20250921",
+          "words": 2496,
+          "summary": "Hoy os traigo otra pieza del álbum de la Juventud de Tchaikovsky de la Op.39 y ésta es el Vals. En mi edición es el número 8, pero hay ediciones que tienen otras numeraciones. Simplemente tenéis que b..."
+        }
+      ]
+    },
+    {
+      "name": "Repertorio: Otros compositores",
+      "description": "Schumann, Grieg, Schubert, Chopin i altres",
+      "videos": [
+        {
+          "id": "xFmA3iRWTTc",
+          "title": "Aprende repertorio - \"Arietta\" Op. 12, pieza lírica - Edvard Grieg",
+          "duration": "10:35",
+          "upload_date": "20250401",
+          "words": 1262,
+          "summary": "Hoy os traigo una pequeña joya, una pieza preciosa que parece muy sencilla pero hace falta control para tocarla bonita y de una manera musical. Me refiero a la arieta de Grieg, su primera pieza lírica..."
+        },
+        {
+          "id": "OsMLx-ZNwD4",
+          "title": "Aprende repertorio - Álbum de la juventud Op. 68 Nº 14 - Robert Schumann",
+          "duration": "9:03",
+          "upload_date": "20250425",
+          "words": 1276,
+          "summary": "Hoy estoy aquí para enseñaros la pieza número 14 del álbum de la juventud de Schumann. Antes que nada la voy a tocar y luego la comentamos. Este es el álbum del álbum de la juventud de Schumann. Como..."
+        },
+        {
+          "id": "Ora1Bqnv-Gs",
+          "title": "Aprende repertorio - Álbum de la juventud Op. 68, N° 16 - Robert Schumann.",
+          "duration": "13:58",
+          "upload_date": "20250325",
+          "words": 1866,
+          "summary": "Este es el primer vídeo de una serie que voy a estar haciendo enseñando repertorio de nivel elemental o principio de profesional para que podáis escoger piezas que no conocíais, que os sean útiles y o..."
+        },
+        {
+          "id": "gYsaOeKuols",
+          "title": "Clase: vals en si menor D 145, Franz Schubert",
+          "duration": "9:27",
+          "upload_date": "20260403",
+          "words": 1401,
+          "summary": "Hoy os voy a hablar de una pieza muy poco conocida que yo tampoco sabía que existía hasta que me la pidió una alumna. Esta pieza es el vals en si menor de la D145 de Schubert y es una solicitud que me..."
+        },
+        {
+          "id": "2cDHF0WbGTM",
+          "title": "Prepárate para las sonatas... estudiando sonatinas",
+          "duration": "20:59",
+          "upload_date": "20251012",
+          "words": 3148,
+          "summary": "¿Soñáis con tocar sonatas, pero las encontráis muy difíciles? ¿Escucháis alguna sonata de Beethoven famosa como la Passionata, la Wallstein, y pensáis que de ninguna manera podéis montar ahora mismo u..."
+        }
+      ]
+    },
+    {
+      "name": "Selección de Repertorio",
+      "description": "Com triar repertori adequat al teu nivell",
+      "videos": [
+        {
+          "id": "-USOYZ4smkg",
+          "title": "Dos caminos para escoger repertorio: académico programado o... ¿sin límites?",
+          "duration": "31:06",
+          "upload_date": "20251201",
+          "words": 5596,
+          "summary": "Me habéis preguntado cómo escoger repertorio, así que vamos a hablar de ello. Esta pregunta no tiene una única respuesta, ya que el repertorio depende mucho de cada persona, del nivel que tiene, del t..."
+        },
+        {
+          "id": "z4wtuW0E_n0",
+          "title": "Escoger repertorio más difícil puede ayudarnos a estudiar mejor.",
+          "duration": "18:10",
+          "upload_date": "20251215",
+          "words": 3135,
+          "summary": "Uno de los problemas más frecuentes en estudiantes de piano es que no saben cómo estudiar. No solamente los alumnos autodidactas, también alumnos que están haciendo la carrera o los inicios de conserv..."
+        },
+        {
+          "id": "Yaol8r3vtUw",
+          "title": "Música minimalista ¿Qué nivel de clásico requiere? ¡Con ejemplos!",
+          "duration": "25:18",
+          "upload_date": "20251221",
+          "words": 3430,
+          "summary": "¿Sois amantes de la música minimalista? Tal vez os interesa saber qué nivel de piano clásico hace falta para poder enfrentarse a partituras minimalistas. Una de las ventajas del piano clásico es que n..."
+        }
+      ]
+    },
+    {
+      "name": "Pianos y Equipamiento",
+      "description": "Compra, proves i tipus de pianos",
+      "videos": [
+        {
+          "id": "PRLtVjx_IK8",
+          "title": "Cómo sacar partido a un piano digital",
+          "duration": "9:35",
+          "upload_date": "20260626",
+          "words": 1776,
+          "summary": "Hoy os voy a enseñar la mejor manera de estudiar con un piano digital y tal vez pensáis, pero ¿por qué nos estás explicando esto en un Stygway & Sons gran cola? ¿Qué es esto, una broma? Pues no, no es..."
+        },
+        {
+          "id": "WVB_KaTv0gY",
+          "title": "Prueba: pianos acústicos con digital incluido",
+          "duration": "8:49",
+          "upload_date": "20260603",
+          "words": 1269,
+          "summary": "Hace unos meses empecé a leer comentarios y en YouTube donde me pedíais que probara un piano transacústic y yo no tenía ni idea que era eso, así que investigué un poquito. Hace unos días pude probar u..."
+        },
+        {
+          "id": "MpK35cu2IIw",
+          "title": "Cuando un piano antiguo merece la pena",
+          "duration": "25:35",
+          "upload_date": "20260513",
+          "words": 2936,
+          "summary": "Estoy en PianoMed, en Vic, mi tienda favorita de pianos y donde vengo a grabar mis vídeos desde hace poco. Y en PianoMed hay muchos pianos antiguos, porque Jaume, el propietario, va a Francia a recoge..."
+        },
+        {
+          "id": "MVcL7IhWIBo",
+          "title": "Cumpliendo un sueño: probando por primera vez 2 Shigeru Kawai",
+          "duration": "16:01",
+          "upload_date": "20260218",
+          "words": 1024,
+          "summary": "Estoy aquí en Musical Fuste en Barcelona y voy a cumplir uno de mis sueños que es robar por primera vez un chiquero kawaii y no he tocado ni una tecla, he tocado casi todos los pianos que hay por aquí..."
+        },
+        {
+          "id": "l7QkBd0GyXw",
+          "title": "Cómo comprar pianos verticales de segunda mano",
+          "duration": "6:15",
+          "upload_date": "20260428",
+          "words": 1191,
+          "summary": "Me habíais pedido que os hablara de pianos verticales, ya que siempre estoy probando pianos de cola y haciendo comparativas de ellos. Así que os voy a hablar un poco de las marcas que me gustan más y..."
+        },
+        {
+          "id": "iUC51vPJW68",
+          "title": "Por fin ante un piano Grotrian-Steinweg (+ prueba de un Steinway)",
+          "duration": "14:32",
+          "upload_date": "20260419",
+          "words": 1816,
+          "summary": "Últimamente he estado probando muchos pianos, ya habéis visto los que me han gustado más, los que me han gustado menos y que siempre voy con ilusión, pero si algo me hacía muchísima ilusión más que ni..."
+        },
+        {
+          "id": "1cX3uIEd2UM",
+          "title": "Probando dos pianos de concierto: Yamaha VS Bösendorfer",
+          "duration": "16:54",
+          "upload_date": "20260310",
+          "words": 1341,
+          "summary": "Hoy es un día muy especial porque voy a hacer una comparativa que me hace mucha ilusión y que me generaba mucha curiosidad. Voy a probar un Bosendorfer 230 y un Yamaha CFX de gran cola de concierto qu..."
+        },
+        {
+          "id": "aZvxypn35eM",
+          "title": "¿Quieres comprar un piano online? Mira esto primero",
+          "duration": "24:49",
+          "upload_date": "20251107",
+          "words": 4521,
+          "summary": "¿Os habéis preguntado alguna vez cómo comprar un piano por internet? Y no me refiero a un piano nuevo, sino cómo escoger un piano viendo anuncios en webs como Miranuncios o en apps como Wallapop. Os p..."
+        }
+      ]
+    },
+    {
+      "name": "Inspiración y Análisis",
+      "description": "Concerts, anàlisi i inspiració musical",
+      "videos": [
+        {
+          "id": "IgIjtTbie_k",
+          "title": "Yulianna Avdeeva en concierto: qué podemos aprender",
+          "duration": "17:14",
+          "upload_date": "20260211",
+          "words": 2786,
+          "summary": "Este sábado tuve la oportunidad de ver a tocar indirecto por primera vez a Juliana Abdeba. La vi tocar al concierto número uno para piano de orquesta de Chopin. Fue una experiencia maravillosa, pero n..."
+        }
+      ]
+    }
+  ],
+  "total_videos": 51,
+  "total_words": 112994
+}
