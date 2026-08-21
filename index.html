@@ -540,20 +540,6 @@
             background: rgba(255,68,68,0.18);
             border-color: rgba(255,68,68,0.4);
         }
-        .yt-transcript-preview {
-            display: none;
-            margin-top: 10px;
-            padding: 12px 14px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            font-size: 0.82em;
-            line-height: 1.6;
-            color: rgba(255,255,255,0.6);
-            max-height: 300px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-        .yt-transcript-preview.open { display: block; }
         .yt-loading {
             text-align: center;
             padding: 40px 20px;
@@ -859,7 +845,7 @@
 
         <div class="advisor-intro" style="border-color:rgba(255,68,68,0.15);background:rgba(255,68,68,0.05);margin-bottom:16px">
             <strong style="color:#ff6666">51 v&iacute;deos transcrits</strong> del canal de Raquel Garc&iacute;a Piano &mdash; <strong style="color:#ff6666">112.994 paraules</strong> de contingut sobre t&egrave;cnica, estudi, repertori, pianos i m&eacute;s.
-            Cada v&iacute;deo inclou la transcripci&oacute; completa cercable. L'<strong>Assessor IA</strong> tamb&eacute; busca dins d'aquestes transcripcions.
+            Cada v&iacute;deo t&eacute; un <strong style="color:#ffaa00">PDF amb sketchnote visual</strong> (resum did&agrave;ctic) + transcripci&oacute; completa. L'<strong>Assessor IA</strong> tamb&eacute; busca dins d'aquestes transcripcions.
         </div>
 
         <div class="course-stats">
@@ -890,12 +876,8 @@
             </div>
         </div>
 
-        <div id="ytTranscriptDetail" class="lesson-detail">
-            <div class="lesson-detail-header">
-                <span class="lesson-detail-title" id="ytDetailTitle"></span>
-                <button class="lesson-detail-close" onclick="app.closeYTDetail()">&times; Tancar</button>
-            </div>
-            <div class="lesson-detail-body" id="ytDetailBody"></div>
+        <div class="advisor-intro" style="border-color:rgba(255,170,0,0.15);background:rgba(255,170,0,0.04);margin-top:16px;font-size:0.82em">
+            &#128214; Cada PDF inclou un <strong style="color:#ffaa00">sketchnote visual</strong> (resum did&agrave;ctic amb idees clau, consells i cites) + la <strong style="color:#ffaa00">transcripci&oacute; completa</strong> formatejada.
         </div>
     </div>
 </div>
@@ -944,7 +926,7 @@ Aquest contingut s'usar&agrave; com a base de coneixement per les consultes de l
 
 <footer>
     Piano Teacher &middot; XRoig 2026
-    <p class="footer-version">v1.5</p>
+    <p class="footer-version">v1.6</p>
 </footer>
 
 <script>
@@ -1120,7 +1102,7 @@ const app = (() => {
                 html += '</div>';
                 html += '<div class="yt-video-actions">';
                 html += '<a class="yt-btn" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank">&#9654; YouTube</a>';
-                html += '<button class="yt-btn" onclick="app.showYTTranscript(\'' + v.id + '\')">&#128196; Transcripci&oacute;</button>';
+                html += '<a class="yt-btn" href="pdfs/' + v.id + '.pdf" target="_blank" style="background:rgba(255,170,0,0.12);border-color:rgba(255,170,0,0.25);color:#ffaa00">&#128196; PDF + Sketchnote</a>';
                 html += '</div>';
                 html += '</div>';
             });
@@ -1139,20 +1121,8 @@ const app = (() => {
         container.innerHTML = html;
     }
 
-    function showYTTranscript(videoId) {
-        if (!ytKnowledgeBase) return;
-        const kb = ytKnowledgeBase.find(k => k.id === videoId);
-        if (!kb) return;
-        document.getElementById('ytDetailTitle').innerHTML = escapeHtml(kb.title) +
-            ' <a href="https://www.youtube.com/watch?v=' + videoId + '" target="_blank" style="font-size:0.7em;color:#ff6666;text-decoration:none;margin-left:8px">&#9654; YouTube</a>';
-        document.getElementById('ytDetailBody').textContent = kb.text;
-        const detail = document.getElementById('ytTranscriptDetail');
-        detail.classList.add('active');
-        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function closeYTDetail() {
-        document.getElementById('ytTranscriptDetail').classList.remove('active');
+    function openPDF(videoId) {
+        window.open('pdfs/' + videoId + '.pdf', '_blank');
     }
 
     function filterYT(val) {
@@ -1817,7 +1787,7 @@ const app = (() => {
         saveTopic, saveLesson, editTopic, editLesson,
         deleteTopic, deleteLesson, toggleComplete,
         showDetail, closeDetail, closeModal,
-        showYTTranscript, closeYTDetail,
+        openPDF,
         exportData, importData,
         pasteCapture, captureFromClipboard, importCapture
     };
